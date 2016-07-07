@@ -1,0 +1,112 @@
+﻿@model PanoramaJXNU.Model.UserInfo
+<div class="perInfo">
+    <div class="titleInfoBorder">
+        <span>我的设置</span>
+    </div>
+    <div class="firstTabBox lineSpace">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#data" data-toggle="tab">
+                    个人资料
+                </a>
+            </li>
+            <li><a href="#head" data-toggle="tab">头像设置</a></li>
+            <li><a href="#changePwd" data-toggle="tab">修改密码</a></li>
+        </ul>
+        @*--------------------------信息设置Start----------------------*@
+
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="data">
+                <div class="setting-right-wrap wrap-boxes settings">
+                    <div id="setting-profile" class="setting-wrap setting-profile">
+                        <div class="wlfg-wrap">
+                            <label class="label-name" for="nick">昵称</label>
+                            <input id="username" style="width:415px;display:inline" class="form-control" placeholder="请输入昵称." value="@Model.UserName" name="nickname" type="text">
+
+                        </div>
+                        <div class="wlfg-wrap">
+                            <label class="label-name" for="nick">电话</label>
+                            <input id="cellphone" style="width:415px;display:inline" class="form-control" placeholder="请输入号码." value ="18702515417" type="text">
+                        </div>
+                        <div class="wlfg-wrap">
+                            <label class="label-name" for="province-select">城市</label>
+                            <span>
+                                <select id="city" class="prov"><option selected="selected" value="北京">北京</option><option value="天津">天津</option><option value="河北">河北</option><option value="山西">山西</option><option value="内蒙古">内蒙古</option><option value="辽宁">辽宁</option><option value="吉林">吉林</option><option value="黑龙江">黑龙江</option><option value="上海">上海</option><option value="江苏">江苏</option><option value="浙江">浙江</option><option value="安徽">安徽</option><option value="福建">福建</option><option value="江西">江西</option><option value="山东">山东</option><option value="河南">河南</option><option value="湖北">湖北</option><option value="湖南">湖南</option><option value="广东">广东</option><option value="广西">广西</option><option value="海南">海南</option><option value="重庆">重庆</option><option value="四川">四川</option><option value="贵州">贵州</option><option value="云南">云南</option><option value="西藏">西藏</option><option value="陕西">陕西</option><option value="甘肃">甘肃</option><option value="青海">青海</option><option value="宁夏">宁夏</option><option value="新疆">新疆</option><option value="香港">香港</option><option value="澳门">澳门</option><option value="台湾">台湾</option><option value="国外">国外</option></select>
+
+                            </span>
+                        </div>
+                        <div class="wlfg-wrap">
+                            <label class="label">性别</label>
+                            <label>
+                                <input name="sex" id="sex" value="0" hidefocus="true" autocomplete="off" checked="checked" type="radio">
+                                保密
+                            </label>
+                            <label>
+                                <input name="sex" value="1" hidefocus="true" autocomplete="off" type="radio">
+                                男
+                            </label>
+                            <label>
+                                <input name="sex" value="2" hidefocus="true" autocomplete="off" type="radio">
+                                女
+                            </label>
+
+                        </div>
+                        <div class="wlfg-wrap">
+                            <label class="label-name label_signature" for="aboutme">个性签名</label>
+                            <textarea class="textarea textarea_signature" rows="5" cols="30" id="signature">@Model.Signature</textarea>
+
+                        </div>
+                        <div class="wlfg-wrap">
+                            <label class="label-name"></label>
+                            <button id="save" class="btn btn-default" style="width:80px" type="button">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*--------------------------信息设置End----------------------*@
+
+            @*--------------------------设置头像Start----------------------*@
+            <div class="tab-pane fade" id="head">
+                <form>
+
+                    <div id="content" style="width: 650px; height: 420px; padding: 10px; display: block;
+            border: 1px solid #ddd;">
+                        @*<input type="button" value="上传" onclick="clll()" />*@
+                        <button type="button" class="btn btn-success" onclick="clll()">保存</button>
+                    </div>
+                    @*<div id="info" style="width: 630px; height: auto; line-height: 20px; border: 1px solid #ddd;
+                        border-top: 0px; font-size: 12px; padding: 10px;">
+                                    <p style="color: #666">
+                                        图片说明：<br />
+                                        每次上传的文件覆盖前面的文件。上传后的路径为:"~/Content/head"/<br />
+                                        以字母b结尾的为大图（130x130 像素），以字母m结尾的为中图（55x55像素），以s结尾的为小图（35x35像素）
+                                    </p>
+                                </div>*@
+                </form>
+            </div>
+            @*--------------------------设置头像End----------------------*@
+
+            @*--------------------------修改密码Start----------------------*@
+            <div class="tab-pane fade" id="changePwd">
+                <div class="wlfg-wrap" style="margin-top:40px">
+                    <label class="label-name" for="nick">原来的密码：</label>
+                    <input type="password" id="oldpwd" style="width:415px;display:inline" class="form-control" placeholder="请输入原来的密码.">
+                </div>
+                <div class="wlfg-wrap">
+                    <label class="label-name" for="nick">新密码：</label>
+                    <input type="password" id="newpwd" style="width:415px;display:inline" class="form-control" placeholder="请输入新密码.">
+                </div>
+                <div class="wlfg-wrap">
+                    <label class="label-name" for="nick">确认密码：</label>
+                    <input type="password" style="width:415px;display:inline" class="form-control" placeholder="请确认密码.">
+                </div>
+
+                <button id="pwdChange" style="margin-left: 280px; width: 100px;" type="button" class="btn btn-default">
+                    保存
+                </button>
+
+                @*--------------------------修改密码End----------------------*@
+            </div>
+        </div>
+    </div>
+</div>

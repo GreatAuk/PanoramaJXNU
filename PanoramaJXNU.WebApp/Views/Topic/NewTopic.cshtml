@@ -1,0 +1,13 @@
+﻿@model List< PanoramaJXNU.Model.Topic>
+
+@foreach (var item in Model)
+{
+    <li class="article-entry image">
+        <h4><a href="/topic/Detail?topicid=@item.Id">@item.Title</a></h4>
+        <span class="article-meta">@item.CreateTime &nbsp;By&nbsp; <a href="#">@item.UserName</a></span>
+        <span class="like-count">@item.PraiseCount</span>
+        <label id="topicid" hidden="hidden">@item.Id</label>
+
+    </li>
+}
+

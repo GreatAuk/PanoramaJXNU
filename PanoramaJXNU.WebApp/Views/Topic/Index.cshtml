@@ -1,0 +1,511 @@
+﻿@model PanoramaJXNU.Model.Topic
+@using PanoramaJXNU.Model
+@using System.Text.RegularExpressions;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section top1{
+    <!-- Style Sheet-->
+
+
+    <link href="~/Content/Topic/css/main5152.css" rel="stylesheet" />
+
+    @*<----------bootstrap-wysiwyg---------------->*@
+    <link href="~/Content/bootstrap-wysiwyg/bootstrap-combined.no-icons.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-wysiwyg/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-wysiwyg/index.css" rel="stylesheet" />
+    @*<script src="~/Content/bootstrap-wysiwyg/jquery1.9.1.min.js"></script>*@
+    @*<本来要引用jquery1.9.1.min.js这个脚本的，但母版页中引用了另一个版本的jquery>*@
+    @*<script src="~/Content/bootstrap-wysiwyg/bootstrap.min.js"></script>*@
+    @*<本来要引用bootstrap.min.js这个脚本的，但母版页中引用了另一个版本的脚本>*@
+    <script src="~/Content/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
+    <script src="~/Content/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
+    @*<----------bootstrap-wysiwyg---------------->*@
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+    <script src="~/Scripts/jquery.page.js"></script>
+    <style type="text/css">
+        #search {
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        .span4 {
+            width: 300px;
+        }
+
+        .img4g img {
+            height: 90px;
+        }
+
+        #alert1 {
+            width: 200px;
+            position: fixed;
+            bottom: 100px;
+            right: 10px;
+        }
+
+        #alert2 {
+            width: 200px;
+            position: fixed;
+            bottom: 100px;
+            right: 10px;
+        }
+
+        .hentry .post-meta > a {
+            display: inline-block;
+            padding-left: 22px;
+            margin-right: 15px;
+            line-height: 22px;
+        }
+
+        /*分页控件的样式Start*/
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: none;
+            }
+
+        .tcdPageCode {
+            padding: 15px 20px;
+            text-align: left;
+            color: #ccc;
+            text-align: center;
+        }
+
+            .tcdPageCode a {
+                display: inline-block;
+                color: #428bca;
+                display: inline-block;
+                height: 25px;
+                line-height: 25px;
+                padding: 0 10px;
+                border: 1px solid #ddd;
+                margin: 0 2px;
+                border-radius: 4px;
+                vertical-align: middle;
+            }
+
+                .tcdPageCode a:hover {
+                    text-decoration: none;
+                    border: 1px solid #428bca;
+                }
+
+            .tcdPageCode span.current {
+                display: inline-block;
+                height: 25px;
+                line-height: 25px;
+                padding: 0 10px;
+                margin: 0 2px;
+                color: #fff;
+                background-color: #428bca;
+                border: 1px solid #428bca;
+                border-radius: 4px;
+                vertical-align: middle;
+            }
+
+            .tcdPageCode span.disabled {
+                display: inline-block;
+                height: 25px;
+                line-height: 25px;
+                padding: 0 10px;
+                margin: 0 2px;
+                color: #bfbfbf;
+                background: #f2f2f2;
+                border: 1px solid #bfbfbf;
+                border-radius: 4px;
+                vertical-align: middle;
+            }
+        /*分页控件的样式end*/
+        .ArticleOver {
+            background: #eff8fe;
+        }
+
+        .new-hr {
+            border-top-color: rgba(33, 13, 13, 0.77);
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+    </style>
+}
+
+<!-- Start of Search Wrapper -->
+<div class="search-area-wrapper">
+    <div class="search-area container">
+        <h3 class="search-header">Have a Question?</h3>
+        <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
+
+        <div id="search" class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search" aria-describedby="sizing-addon1">
+            <span class="glyphicon glyphicon-search input-group-addon" id="sizing-addon1"></span>
+        </div>
+    </div>
+</div>
+<!-- End of Search Wrapper -->
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+            <!-- start of page content -->
+            <div class="span8 main-listing">
+                <div id="main-content">
+                    @{Html.RenderAction("Partial", "Topic", new { pageindex = 1 });}
+                </div>
+
+                <div class="tcdPageCode"></div>
+                
+            </div>
+            <!-- end of page content -->
+            <!-- start of sidebar -->
+            <aside class="span4 page-sidebar">
+
+                <section class="widget">
+                    <div class="support-widget">
+                        <h3 class="title">我的论坛</h3>
+                        <p class="intro">Need more support? If you did not found an answer, contact us for further help.</p>
+                    </div>
+                </section>
+
+
+                <section class="widget">
+                    <h3 class="title">新话题</h3>
+                    <ul class="articles">
+                        @{Html.RenderAction("NewTopic", "Topic");}
+
+                        @*<li class="article-entry standard">
+                                <h4><a href="single.html">Integrating WordPress with Your Website</a></h4>
+                                <span class="article-meta">25 Feb, 2013 in <a href="#">user22</a></span>
+                                <span class="like-count">66</span>
+                            </li>
+                            <li class="article-entry standard">
+                                <h4><a href="single.html">WordPress Site Maintenance</a></h4>
+                                <span class="article-meta">24 Feb, 2013 in <a href="#">user3</a></span>
+                                <span class="like-count">15</span>
+                            </li>
+                            <li class="article-entry video">
+                                <h4><a href="single.html">Meta Tags in WordPress</a></h4>
+                                <span class="article-meta">23 Feb, 2013 in <a href="#">Website Dev</a></span>
+                                <span class="like-count">8</span>
+                            </li>*@
+
+                    </ul>
+                </section>
+
+
+                <section class="widget">
+                    <h3 class="title">发现</h3>
+                    <ul id="recentcomments">
+                        @{Html.RenderAction("DisCover", "Comment");}
+                     
+                    </ul>
+                </section>
+
+            </aside>
+            <!-- end of sidebar -->
+        </div>
+    </div>
+</div>
+<!-- End of Page Container -->
+<!--begin of bootstrap-wysiwyg-->
+@*@using (Ajax.BeginForm("UserLogin", "Login", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterLogin", LoadingElementId = "div1" }, new { id = "loginForm", @class = "form-horizontal templatemo-login-form-2" }))*@
+<div id="go" class="container">
+    <div class="hero-unit" style="width:750px">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">标题</span>
+            <input type="text" class="form-control" id="title" placeholder="请输入标题" aria-describedby="sizing-addon1">
+        </div>
+        <div id="alerts"></div>
+        <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+            <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" title="字体"><i class="icon-font"></i><b class="caret"></b></a>
+                <ul class="dropdown-menu"></ul>
+            </div>
+            <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" title="字体大小"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+                    <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+                    <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <a class="btn" data-edit="bold" title="粗 (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+                <a class="btn" data-edit="italic" title="斜 (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+                <a class="btn" data-edit="strikethrough" title="删除线"><i class="icon-strikethrough"></i></a>
+                <a class="btn" data-edit="underline" title="下划线 (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+            </div>
+            <div class="btn-group">
+                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
+                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
+                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+            </div>
+            <div class="btn-group">
+                <a class="btn" data-edit="justifyleft" title="左对齐 (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+                <a class="btn" data-edit="justifycenter" title="居中 (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+                <a class="btn" data-edit="justifyright" title="右对齐 (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+            </div>
+            <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="icon-link"></i></a>
+                <div class="dropdown-menu input-append">
+                    <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                    <button class="btn" type="button">Add</button>
+                </div>
+                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>
+            </div>
+
+            <div class="btn-group">
+                <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
+                <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+            </div>
+            <div class="btn-group">
+                <a class="btn" data-edit="undo" title="撤销 (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+                <a class="btn" data-edit="redo" title="重做 (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+            </div>
+            <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
+        </div>
+
+        <div id="editor" style="height:350px">
+
+        </div>
+        <button style="float:right" class="btn btn-default btn-lg" id="sub">发表</button>
+    </div>
+</div>
+
+<div hidden="hidden" id="alert1" class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>发布成功！！</strong>
+</div>
+<div hidden="hidden" id="alert2" class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <a href="/Login/Index"><strong>请先登录！！</strong></a>
+</div>
+<div style="position:fixed;right:53px;bottom:100px">
+    <a href="#go" data-toggle="tooltip" data-placement="right" title=" 发帖 "><button type="button" class="glyphicon glyphicon-pencil btn btn-primary btn-lg"></button></a>
+</div>
+<script>
+    //富文本编辑器
+    $(function () {
+        function initToolbarBootstrapBindings() {
+            var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
+                  'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+                  'Times New Roman', 'Verdana'],
+                  fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+            $.each(fonts, function (idx, fontName) {
+                fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
+            });
+            $('a[title]').tooltip({ container: 'body' });
+            $('.dropdown-menu input').click(function () { return false; })
+                .change(function () { $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle'); })
+            .keydown('esc', function () { this.value = ''; $(this).change(); });
+
+            $('[data-role=magic-overlay]').each(function () {
+                var overlay = $(this), target = $(overlay.data('target'));
+                overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+            });
+            if ("onwebkitspeechchange" in document.createElement("input")) {
+                var editorOffset = $('#editor').offset();
+                $('#voiceBtn').css('position', 'absolute').offset({ top: editorOffset.top, left: editorOffset.left + $('#editor').innerWidth() - 35 });
+            } else {
+                $('#voiceBtn').hide();
+            }
+        };
+        function showErrorAlert(reason, detail) {
+            var msg = '';
+            if (reason === 'unsupported-file-type') { msg = "Unsupported format " + detail; }
+            else {
+                console.log("error uploading file", reason, detail);
+            }
+            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
+             '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
+        };
+        initToolbarBootstrapBindings();
+        $('#editor').wysiwyg({ fileUploadError: showErrorAlert });
+    });
+
+    var img = '@ViewBag.headImg'
+    Is(img);
+    function Is(img) {
+        if (img != 'None') {
+            $("#showLogin").css("display", "none");
+            $("#head-img").prop("src", img);
+        }
+        else {
+            $(".dropdown").css("display", "none");
+        }
+    }
+
+    $(function () {
+        submit();
+        praise();
+    });
+    //发帖
+    var NULL = $("#editor").html();
+    function submit() {
+        $("#sub").click(function () {
+
+            if ($("#title").val() == '') {
+                $("#sub").attr("data-content", "标题不能为空");
+                $("#sub").popover('show');
+                var t = setTimeout("$('#sub').popover('hide');", 1000);
+                $("#sub").removeAttr("data-content");
+                return;
+            }
+            if ($("#editor").html() == NULL) {
+                $("#sub").attr("data-content", "内容不能为空");
+                $("#sub").popover('show');
+                var t = setTimeout("$('#sub').popover('hide');", 1000)
+                return;
+            }
+
+            else {
+                $.post(
+                               "/Topic/CreateTopic",
+                               { title: $("#title").val(), content: $("#editor").html() },
+                               function (data) {
+                                   if (data == "ok") {
+                                       $("#alert1").removeAttr("hidden");   //弹出提示框
+                                       var t = setTimeout('$("#alert1").prop("hidden", "hidden");', 3000)  //3秒后提示框消失
+                                       //重新加载
+                                       $.get(
+                                            "/Topic/Partial",
+                                            { pageindex: 1 },
+                                            function (data) {
+                                                $("#main-content").html(data);
+
+                                                //鼠标滑过帖子时改变帖子背景颜色,注意，这个方法写了两遍
+                                                $(function () {
+                                                    //当鼠标滑入时将div的class换成divOver
+                                                    $('article').hover(function () {
+                                                        $(this).addClass('ArticleOver');
+                                                    }, function () {
+                                                        //鼠标离开时移除divOver样式
+                                                        $(this).removeClass('ArticleOver');
+                                                    }
+                                                    );
+                                                });
+
+                                                //占赞加一
+                                                praise();
+       
+                                            }
+                                        )
+                                   }
+                                   if (data == "请先登录") {
+                                       $("#alert2").removeAttr("hidden");   //弹出提示框
+                                       var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //3秒后提示框消失
+                                   }
+                               }
+                               )
+            }
+
+        });
+    }
+    //占赞加一
+    
+    function praise() {
+        
+        $(".like-count").click(function () {
+            var work;
+            var num = $(this).text();
+            var link = $(this);
+            var topicid = $(this).next("#topicid").text();
+            $.get(
+                    "/TopicPraiseRecord/IsExit",
+                    { topicid: $(this).next("#topicid").text() },
+                    function (data) {
+                        if (data == "exit") {
+                            link.popover('show');
+                            var t = setTimeout("link.popover('hide');", 2000)
+                            work = "stop";
+                        }
+                        if (data == "请先登录") {
+                            $("#alert2").removeAttr("hidden");   //弹出提示框
+                            var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                            work = "stop";
+                        }
+                        if (data == "do") {
+                            work = "praise";
+                            
+                        }
+                        if (work == "praise") {
+                            
+                            $.get(
+                                     "/Topic/Prasie",
+                                     { topicid: topicid },
+                                     function (data) {
+                                         if (data == "ok") {
+                                             link.text(parseInt(num) + 1); //将赞数加1，视觉上的加1（此时数据库的也加了一）
+                                             //记录点赞
+                                             $.get(
+                                                "/TopicPraiseRecord/Record",
+                                                { topicid: topicid },
+                                                function (data) {
+                                                }
+                                             )
+                                         }
+                                         if (data == "请先登录") {
+                                             $("#alert2").removeAttr("hidden");   //弹出提示框
+                                             var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                         }
+                                     }
+                                     )
+                        }
+                    })
+
+        });
+    }
+    //分页
+    var count =@ViewBag.pageCount
+    $(".tcdPageCode").createPage({
+        pageCount: count,
+        current: 1,
+        backFn: function (p) {
+            $.get(
+                "/Topic/Partial",
+                { pageindex: p },
+                function (data) {
+                    $("#main-content").html(data);
+
+                    //鼠标滑过帖子时改变帖子背景颜色,注意，这个方法写了两遍
+                    $(function () {
+                        //当鼠标滑入时将div的class换成divOver
+                        $('article').hover(function () {
+                            $(this).addClass('ArticleOver');
+                        }, function () {
+                            //鼠标离开时移除divOver样式
+                            $(this).removeClass('ArticleOver');
+                        }
+                        );
+                    });
+                    //占赞加一
+                    praise();
+                }
+            )
+        }
+    });
+
+    //鼠标滑过帖子时改变帖子背景颜色注意，这个方法写了两遍
+    $(function () {
+        //当鼠标滑入时将div的class换成divOver
+        $('article').hover(function () {
+            $(this).addClass('ArticleOver');
+        }, function () {
+            //鼠标离开时移除divOver样式
+            $(this).removeClass('ArticleOver');
+        }
+        );
+    });
+</script>
+<!--end of bootstrap-wysiwyg-->

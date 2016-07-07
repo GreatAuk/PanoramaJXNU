@@ -1,0 +1,37 @@
+﻿@*@model List<PanoramaJXNU.Model.Comment>*@
+@using PanoramaJXNU.WebApp.Controllers
+
+@foreach (var com in (ViewBag.quoteComment as List<Model1>) )
+{
+    <div class="media" style=" margin-bottom: 10px; ">
+        <div class="media-left con media-middle ">
+            <a href="#"><img alt="" src="@com.UserImg" class="img-circle" height="70" width="70"></a>
+            <label id="commentUserName" hidden="hidden">@com.UserName</label>
+        </div>
+        <div class="media-body hentry">
+            @*<blockquote><p>再次，把保护人权列入到我们宪法当中并不代表我国人就充分享受到了人权自由。宪法规定的很多权力，实际上公民是被打了折扣的。比如我们的休息休假、人大代表选举、私有财产不受侵犯、生态环境保护等等等等，都写进了宪法，可是做得如何</p></blockquote>*@
+            @if (com.quote != string.Empty)
+            {
+                <blockquote>@Html.Raw(com.quote)</blockquote>
+            }
+            
+            <div class="commentContent">@com.Content</div>
+            <div class="post-meta clearfix com">
+                <span class="date">@com.CreatTime</span>
+                <span class="category"><a href="#">@com.UserName</a></span>
+                <a class="like-count" data-trigger="hover" data-content="不能再点了">@com.Praise</a>
+                <label id="commentId" hidden="hidden">@com.Id</label>
+                <button type="button" class="btn btn-primary btn-xs">回复</button>
+            </div>
+            <div class="txt" hidden="hidden">
+                <textarea hidden="hidden" class="form-control" rows="3"></textarea>
+                <button type="button" class="btn btn-primary btn-xs">回复</button>
+                <label id="commentId" hidden="hidden">@com.Id</label>
+                @*<label id="topicuserid" hidden="hidden">@Model.UserId</label>*@
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+

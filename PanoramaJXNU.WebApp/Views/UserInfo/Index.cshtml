@@ -1,0 +1,264 @@
+﻿@using PanoramaJXNU.Model
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section top1{
+        <link href="~/Content/User_Center/member.css" rel="stylesheet" />
+        <link href="~/Content/Topic/css/main5152.css" rel="stylesheet" />
+        <script src="~/Content/avatar/tangram-custom-full-yui.js"></script>
+
+    <style type="text/css">
+        body {
+            background-color: #ebebeb;
+        }
+        .new-hr {
+            border-top-color: rgba(33, 13, 13, 0.77);
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        #alert1 {
+            width: 200px;
+            position: fixed;
+            bottom: 100px;
+            right: 10px;
+        }
+        .img4g img {
+            height: 90px;
+        }
+    </style>
+}
+<div class="container clearfix">
+    <div class="member_right">
+        <div class="member_per">
+            <div class="panel clearfix">
+                <div class="panel-info clearfix">
+                    <a href="#"><img alt="" src="@ViewBag.headImg" class="img-circle" height="60" width="60"></a>
+                    <div class="name-job">
+                        <h4 class="myname"> GreatAuk </h4>
+                        <p class="job-title">性别： @ViewBag.sex </p>
+                    </div>
+                </div>
+                <div class="sign-wrap">
+                    <textarea id="signed_textarea" class="signed_textarea" disabled="disabled" autocomplete="off">@ViewBag.Signature</textarea>
+                    <em id="signed_edit" class="signed_edit"></em>
+                </div>
+                <p id="signed_error" class="signed_error"></p>
+                <div class="rank-points">
+                    <ul style="padding-left: 0px;">
+                        <li class="mp-item">
+                            <a class="mp-atag" href="#">
+                                <span class="mp-title">Level</span>
+                                <span class="mp-num">6</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="member_per">
+            <ul class="nav panel">
+                
+                <li>
+                    <a href="#" id="myset"><i class="icon-nav icon-note"></i>我的设置</a>
+                </li>
+                <li>
+                    <a href="#" id="mycom"><i class=" icon-nav icon-plan"></i>我的评论</a>
+                </li>
+                <li>
+                    <a href="#" id="mytopic"><i class="icon-nav icon-ques"></i>我的话题</a>
+                </li>
+                <li>
+                    <a href="#" id="myleamsg"><i class="icon-nav icon-ques"></i>我的留言</a>
+                </li>
+                <li style="border-bottom: none">
+                    <a href="#" id="mymes"><i class="icon-nav icon-msg"></i>我的消息</a>
+                </li>
+            </ul>
+        </div>
+        <div class="member_per">
+            <ul class="space-data panel">
+                
+                <li>
+                    <span class="icon-tick icon" title="收藏"></span>
+                    收藏：
+                    <a href="#">0条</a>
+                </li>
+                <li>
+                    <span class="icon-note icon" title="签到"></span>
+                    签到：
+                    <a class="countNote" href="#">0次</a>
+                </li>
+
+                <li>
+                    <span class="icon-code icon" title="回复"></span>
+                    代码：
+                    <a href="">0条</a>
+                </li>
+                <li>
+                    <span class="icon-user icon" title="粉丝"></span>
+                    粉丝：
+                    <a href="">0个</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="member_main" ">
+        @{Html.RenderAction("Set", "UserInfo");}
+    </div>
+</div>
+
+<div hidden="hidden" id="alert1" class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong></strong>
+</div>
+
+@section top2{
+    <script type="text/javascript">
+        var img ='@ViewBag.headImg'
+            Is(img);
+        function Is(img) {
+            if (img != '') {
+                $("#showLogin").css("display", "none");
+                $("#head-img").prop("src", img);
+            }
+            else {
+                $(".dropdown").css("display", "none");
+            }
+        }
+
+    //点击我的设置后改变
+        $("#myset").click(function () {
+         
+        $.get(
+            "/UserInfo/Set",
+            {},
+            function (data) {
+                $(".member_main").html(data);
+            }
+        )
+    })
+    //点击我的评论后改变
+        $("#mycom").click(function () {
+            $(".member_main").removeClass("height");
+        $.get(
+            "/UserInfo/MyComment",
+            {},
+            function (data) {
+                $(".member_main").html(data);
+            }
+        )
+    })
+    //点击我的话题后改变
+        $("#mytopic").click(function () {
+            $(".member_main").removeClass("height");
+
+        $.get(
+            "/UserInfo/MyTopic",
+            {},
+            function (data) {
+                $(".member_main").html(data);
+            }
+        )
+    })
+        //点击我的留言后改变
+        $("#myleamsg").click(function () {
+            $(".member_main").removeClass("height");
+
+            $.get(
+                "/UserInfo/MyLeaMsg",
+                {},
+                function (data) {
+                    $(".member_main").html(data);
+                }
+            )
+        })
+        //点击我的消息后改变
+        $("#mymes").click(function () {
+            $(".member_main").removeClass("height");
+
+        $.get(
+            "/UserInfo/MyMessage",
+            {},
+            function (data) {
+                $(".member_main").html(data);
+            }
+        )
+    })
+
+    //---------头像上传Start-------------------------------
+    var info = baidu.g("info");
+    var options = {
+        uploadURL: "@Url.Action("UploadAvatar", "UserInfo")", tipHandle: function (tip) {
+            alert(tip);
+        }
+        , uploadCallBack: function () {
+            // 处理完毕后的操作。例如 window.location ='xxxxx/xxxxx';
+            //alert("od");
+            $.get(
+                 "/UserInfo/ChangeHead",
+                 {},
+                 function (data) {
+                     if (data == "ok") {
+                         window.location.href="/UserInfo/Index"
+                     }
+                 }
+            )
+        }
+        , createOptions: {
+            id: "flashID", url: "@Url.Content("~/Content/avatar/avatarMaker.swf")", width: "630px", height: "360px", container: "content"
+        }
+    };
+    var up = new baidu.flash.avatarMaker(options);
+    var t = function () {
+        var d = new Date();
+        return [d.getHours(), d.getMinutes(), d.getSeconds()].join(":")
+    };
+
+    function clll() { up.upload(); }
+    //---------头像上传End-------------------------------
+
+    //鼠标滑过帖子时改变帖子背景颜色
+    $(function () {
+        //当鼠标滑入时将div的class换成divOver
+        $('article').hover(function () {
+            $(this).addClass('ArticleOver');
+        }, function () {
+            //鼠标离开时移除divOver样式
+            $(this).removeClass('ArticleOver');
+        }
+        );
+    });
+
+    //修改密码
+    $("#pwdChange").click(function () {
+        $.get(
+            "/UserInfo/ChangePwd",
+            { newpwd: $("#newpwd").val(), oldpwd: $("#oldpwd").val() },
+            function (data) {
+                showmsg(data);
+            }
+        )
+    })
+    //修改个人信息
+    $("#save").click(function () {
+        $.get(
+            "/UserInfo/ChangePersonMsg",
+            { username: $("#username").val(), cellphone: $("#cellphone").val(), city: $("#city option:selected").text(), signature: $("#signature").val() },
+            function (data) {
+                ShowMsg(data);
+            }
+        )
+    });
+    function ShowMsg(data) {
+        $("strong").text(data);
+        $("#alert1").removeAttr("hidden");   //弹出提示框
+        var t = setTimeout('$("#alert1").prop("hidden", "hidden");', 3000)  //3秒后提示框消失
+    }
+        
+    </script>
+}
+
+
+

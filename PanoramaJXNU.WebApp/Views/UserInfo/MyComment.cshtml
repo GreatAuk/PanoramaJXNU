@@ -1,0 +1,20 @@
+﻿@model List<PanoramaJXNU.Model.Comment>
+<div class="perInfo">
+    <div class="titleInfoBorder">
+        <span>我的消息</span>
+    </div>
+    <div class="firstTabBox lineSpace">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @foreach (var item in Model)
+                {
+                    <div>
+                        <span>@(item.Content.Length>40?item.Content.Substring(0,40)+".....":item.Content)</span>&nbsp;On&nbsp;<a href="#">@item.TopicTitle</a><span style="float:right">@item.CreatTime</span>
+                    </div>
+                    <hr />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

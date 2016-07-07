@@ -1,0 +1,100 @@
+﻿@model List<PanoramaJXNU.Model.LeaveMsg>
+<div class="perInfo">
+    <div class="titleInfoBorder">
+        <span>我的留言</span>
+    </div>
+    <div class="firstTabBox lineSpace">
+        <div class="col-sm-9 col-lg-10" style="width: 850px;">
+           
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="pull-right">
+                        <div class="btn-group mr10">
+                            <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip" title="" data-original-title="Report Spam"><i class="glyphicon glyphicon-exclamation-sign"></i></button>
+                            <button id="delete" class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip" title="" data-original-title="Delete"><i class="glyphicon glyphicon-trash"></i></button>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-white" type="button"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                            <button class="btn btn-sm btn-white" type="button"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                        </div>
+                    </div><!-- pull-right -->
+
+                    <h5 class="subtitle mb5">全选</h5><input id="all" style="margin-left: 8px;" type="checkbox" >
+
+                    <div class="table-responsive">
+                        <table class="table table-email">
+                            <tbody>
+                                
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="">
+                                        <td>
+                                            <div class="ckbox ckbox-success">
+                                                <input class="ck" type="checkbox" >
+                                                <label hidden="hidden">@item.Id</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="" class="star"><i class="glyphicon glyphicon-star"></i></a>
+                                        </td>
+                                        <td>
+                                            <div class="media" style="cursor: pointer" data-toggle="collapse" data-target="#@item.Id">
+                                                <a href="#" class="pull-left">
+                                                   
+                                                    <img style="background: #333;" id="replyImg" alt="" src="@item.SenderHead" class="img-circle" height="60" width="60">
+                                                </a>
+                                                <div class="media-body">
+                                                    <span class="media-meta pull-right">@item.SendTime</span>
+                                                    <h4 class="text-primary">@item.Sender</h4>
+                                                    <small class="text-muted"></small>
+                                                    <p>
+                                                        @Html.Raw(item.Content.Length>20?item.Content.Substring(0,20):item.Content)
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div id="@item.Id" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); margin-top: 5px; padding: 5px; " class="collapse ">
+                                                @item.Content
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div><!-- table-responsive -->
+
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+        </div>
+    </div>
+</div>
+<script>
+  
+    $(".member_main").css("height","");
+
+    $("#all").click(function () {
+        if ($(".ck").prop("checked") == false) {
+            $(".ck").prop("checked", true);
+        }
+        else {
+            $(".ck").prop("checked", false);
+        }
+
+    });
+    $("#delete").click(function () {
+        alert($("input[checked='true']").next('label').text());
+            //$.get(
+            //    '/LeaveMsg/Delete',
+            //    { id: $("input[check='true']").next('label').text() },
+            //    function (data) {
+            //        alert(data);
+            //    }
+            //)
+    });
+</script>

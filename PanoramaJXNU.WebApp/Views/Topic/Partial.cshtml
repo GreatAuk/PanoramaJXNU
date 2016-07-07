@@ -1,0 +1,66 @@
+﻿@using PanoramaJXNU.Model
+
+@foreach (var topic in (List<Topic>)ViewBag.topic)
+{
+    <article class="format-standard type-post hentry clearfix">
+
+        <header class="clearfix">
+
+            <h3 class="post-title">
+                @topic.Title
+            </h3>
+            <div class="post-meta clearfix">
+                <span class="date">@*25 Feb, 2013*@@topic.CreateTime.ToString("yyyy-MM-dd")</span>
+                <span class="category"><a href="#">@topic.UserName</a></span>
+                <span class="comments"><a href="#">@topic.ReplyCount</a></span>
+                <a class="like-count" data-trigger="hover" data-content="不能再点了">@topic.PraiseCount</a>
+                <label id="topicid" hidden="hidden">@topic.Id</label>
+            </div><!-- end of post meta -->
+
+        </header>
+        <div>
+            @Html.Raw(topic.Content.Length > 150 ? topic.Content.Substring(0, 150) + "..." : topic.Content) <a class="readmore-link" href="/topic/Detail?topicid=@topic.Id">Read more</a>
+        </div>
+       
+
+        <div class="img4g">
+            @{
+                int start;
+                int end;
+
+                List<string> imgs = new List<string>();
+                string Content = topic.Content;
+                if ((start = Content.IndexOf("<img")) != -1)
+                {
+                    end = Content.IndexOf(">", start);
+                    imgs.Add(Content.Substring(start, end - start + 1));
+                    Content = Content.Remove(start, end - start + 1);
+                    if ((start = Content.IndexOf("<img")) != -1)
+                    {
+                        end = Content.IndexOf(">", start);
+                        imgs.Add(Content.Substring(start, end - start + 1));
+                        Content = Content.Remove(start, end - start + 1);
+                    }
+                    if ((start = Content.IndexOf("<img")) != -1)
+                    {
+                        end = Content.IndexOf(">", start);
+                        imgs.Add(Content.Substring(start, end - start + 1));
+                        Content = Content.Remove(start, end - start + 1);
+                    }
+                    if ((start = Content.IndexOf("<img")) != -1)
+                    {
+                        end = Content.IndexOf(">", start);
+                        imgs.Add(Content.Substring(start, end - start + 1));
+                        Content = Content.Remove(start, end - start + 1);
+                    }
+                }
+                foreach (var img in imgs)
+                {
+                    @Html.Raw(img);
+                }
+            }
+        
+        </div>
+    </article>
+    <hr class="new-hr" />
+}

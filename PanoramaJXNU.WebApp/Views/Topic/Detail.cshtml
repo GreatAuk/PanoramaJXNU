@@ -1,0 +1,650 @@
+﻿@using PanoramaJXNU.Model
+@model PanoramaJXNU.Model.Topic
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section top1{
+    <link href="~/Content/Topic/css/main5152.css" rel="stylesheet" />
+    <style type="text/css">
+        #QuickReply {
+            float: right;
+            margin-top: 5px;
+        }
+
+        hr {
+            border-top-color: #421C1C;
+            margin-top: 2px;
+        }
+
+        blockquote {
+            padding: 10px 10px 10px 60px;
+            margin-bottom:10px;
+        }
+
+        .media-body .post-meta {
+            margin-bottom: 2px;
+            margin-top: 15px;
+        }
+
+        .panel {
+            margin-top: 20px;
+        }
+
+        .post-meta .btn {
+            float: right;
+        }
+
+        .txt .btn {
+            float: right;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .alert {
+            width: 200px;
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+        }
+
+        #alert1 {
+            width: 200px;
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+        }
+
+        #alert2 {
+            width: 200px;
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+        }
+        #alert3 {
+            width: 200px;
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+        }
+        .hentry .post-meta > a {
+            display: inline-block;
+            padding-left: 22px;
+            margin-right: 15px;
+            line-height: 22px;
+        }
+
+        .ReplyOver {
+            background: #F6F6F6;
+        }
+        .Reply {
+            background: #FBFBFB;
+        }
+        article {
+            margin: 0 50px 0 50px;
+        }
+
+        .tab-pane .media {
+            padding: 10px 10px 0 0;
+        }
+
+        blockquote div {
+            border: 1px solid;
+            margin: 2px;
+        }
+        .commentContent{
+            margin-left:60px;
+        }
+        blockquote div{
+            padding: 5px 5px 10px 5px;
+        }
+            blockquote div p {
+                font-size:14px;
+            }
+            blockquote div a {
+                font-size: 12px;
+                margin-left:10px;
+            }
+        .cate span {
+            font-weight: normal;
+            font-size: 12px;
+            font-family: tahoma,\5FAE\8F6F\96C5\9ED1;
+        }
+        #Div button{
+            margin-top:10px;
+        }
+        .tool{
+            background-color:#e9e1e1;
+        }
+    </style>
+
+}
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container" style="width:970px;">
+        <div class="row">
+
+            <!-- start of primary content -->
+            <div class="span8 page-content">
+                <div style=" background: url(/Content/Topic/images/dzh-bodyBj.png);">
+                    <article class=" type-post format-standard hentry clearfix">
+
+                        <h1 id="Title" class="post-title">@Model.Title</h1>
+
+                        <div class="post-meta clearfix topic">
+                            <span class="date">@Model.CreateTime.ToString("yyyy-MM-dd")</span>
+                            <span class="category"><a href="#">@Model.UserName</a></span>
+                            <span class="comments"><a href="#">@Model.ReplyCount</a></span>
+                            <a class="like-count" data-trigger="hover" data-content="不能再点了">@Model.PraiseCount</a>
+                            <label id="topicid" hidden="hidden">@Model.Id</label>
+                            <label id="topicuserid" hidden="hidden">@Model.UserId</label>
+                        </div>
+                        <div style="padding: 0 20px 0 20px;">
+                            @Html.Raw(Model.Content)
+                        </div>
+
+                    </article>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="media">
+                                <div class="media-left media-middle">
+                                    <a href="#"><img style="background: #333;" id="replyImg" alt="" src="@ViewBag.headImg" class="img-circle" height="60" width="60"></a>
+                                </div>
+                                <div class="media-body">
+                                    <span>快速回复</span>
+                                    <textarea id="QuickTxt" class="form-control" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <button id="QuickReply" type="button" data-content="回复不能为空" class="btn btn-primary">回复</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end of primary content -->
+                <!-- start of comment  -->
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#all" data-toggle="tab">
+                           <h4>全部回帖</h4> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#praise" data-toggle="tab">
+                           <h4>赞数最多</h4> 
+                        </a>
+                    </li>
+
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    @*-----------------------------------------------------------------------------*@
+                    <div class="tab-pane fade in active" id="all">
+                        @{Html.RenderAction("ShowReply", "Comment", new { TopicId = Model.Id,index=1 });}
+                      
+
+                    </div>
+                    <label id="index" hidden="hidden">1</label>
+                    <label id="topicid" hidden="hidden">@Model.Id</label>
+                    <button id="next" type="button" class="btn btn-default" aria-label="Left Align" style="width: 900px; height: 26.818182px;">
+                        <span style="color: rgb(41, 96, 145); " class="glyphicon glyphicon-chevron-down" aria-hidden="true">更多</span>
+                    </button>
+                    @*------------------------------------------------------------------------------------------*@
+                    <div class="tab-pane fade" id="praise">
+                        @{Html.RenderAction("ShowReplyByPraise", "Comment", new { TopicId = Model.Id });}
+                    </div>
+                    @*------------------------------------------------------------------------------------------*@
+
+                </div>
+
+
+
+
+            </div>
+            <!-- start of comment  -->
+
+        </div>
+    </div>
+</div>
+
+<div hidden="hidden" id="alert1" class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>发布成功！！</strong>
+</div>
+<div hidden="hidden" id="alert2" class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <a href="/Login/Index"><strong>请先登录！！</strong></a>
+</div>
+<div hidden="hidden" id="alert3" class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+   <strong>关注成功！！</strong>
+</div>
+
+<div id="Div" style="width:300px;position:absolute;display:none;border:groove" class="panel panel-default">
+    <div class="panel-body" style="padding:15px 0 2px 0">
+        <div class="media" style="padding:15px">
+            <div class="media-left media-middle">
+                <a href="#">
+                    <img id="headimg" class="img-circle" style="width:90px;background-color:black;" src="~/Content/head/default.gif" />
+                </a>
+            </div>
+            <div class="media-body">
+                <a class="commentuser" style="display:block;margin-bottom:10px">UserName</a>
+                <span id="sex" class="glyphicon glyphicon-user">保密</span><span id="city" class="glyphicon glyphicon-map-marker" style="float: right; margin-right:15px">未知</span>
+                <div class="cate">
+                    <span id="focusCount">关注：0</span><span id="fsCount" style="float:right;">粉丝：0</span>
+                    <br />
+                    <span id="replyCount">回帖：0</span><span id="topicCount" style="float:right; ">发帖：0</span>
+                </div>
+            </div>
+        </div>
+        <div style="margin-left:15px">
+            <p id="signature"></p>
+        </div>
+        <div class="tool" style="height:30px;margin-top:15px;">
+            <button id="focus" style="float: right; margin-right: 5px" type="button" class="btn btn-primary btn-xs" aria-label="Left Align">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true">关注</span>
+            </button>
+            <button style="float:right;margin-right:5px" type="button" data-toggle="modal"
+                    data-target="#myModal" class="btn btn-primary btn-xs" aria-label="Left Align">
+                <span class="glyphicon glyphicon-send" aria-hidden="true">留言</span>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="messageTo">
+                    留言To
+                </h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="msgcontent" class="form-control" rows="7"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" id="send" class="btn btn-primary">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 模态框（Modal） -->
+
+<!-- End of Page Container -->
+@section top2{
+    <script type="text/javascript">
+
+        var img = '@ViewBag.headImg'
+        Is(img);
+        function Is(img) {
+            if (img != 'None') {
+                $("#showLogin").css("display", "none");
+                $("#head-img").prop("src", img);
+                            }
+            else {
+                $(".dropdown").css("display", "none");
+                $("#replyImg").prop("src","/Content/head/default.gif")
+            }
+        }
+      
+        $(function () {
+            showArea();
+            ReplyToReply();
+            QuickReply();
+            replyPraise();
+            //----------
+            
+            function showArea() {
+                $(".post-meta>.btn-xs").click(function () {
+                    if ($(this).text() == "收起回复") {
+                        $(this).text("回复");
+                        $(this).parent().next(".txt").prop("hidden", "hidden");
+
+                    }
+                    else {
+                        $(this).text("收起回复");
+                        $(this).parent().next(".txt").removeAttr("hidden");
+                    }
+                });
+            }
+          
+            //对回复的回复
+            function ReplyToReply() {
+                $(".txt>.btn").click(function () {
+                    if ($(this).prev().val() == '') {
+                        $(this).popover('show');
+                        var t = setTimeout("$('this').popover('hide');", 1000);
+                    }
+                    else {
+                        $.post(
+                                        "/Comment/QuickReply",
+                                        {index:1, content: $(this).prev().val(), topicid: $("#topicid").text(), topicuserid: $("#topicuserid").text(), commentId: $(this).next().text(), title: $("#Title").text() },
+                                        function (data) {
+                                            if (data == "ok") {
+                                                $("#alert1").removeAttr("hidden");   //弹出提示框
+                                                var t = setTimeout('$("#alert1").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                                //重新加载
+                                                var topicid=@Model.Id
+                                                $.get(
+                                                   '/Comment/ShowReply',
+                                                     {TopicId:topicid,index:1},
+                                                function(data){
+                                                    $("#all").html(data);
+                                                    showArea();
+                                                    replyPraise();
+                                                    ReplyToReply();
+                                                    showTool();
+                                                    ChangeColor();
+                                                    send();
+                                                    focus();
+                                                }
+                                                )
+                                            
+                                            }
+                                            if (data == "请先登录") {
+                                                $("#alert2").removeAttr("hidden");   //弹出提示框
+                                                var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                            }
+                                        }
+                                        )
+                        $("#QuickTxt").val("");   //清空回复框
+                    }
+
+                });
+            }
+
+            //快速回复
+            function QuickReply() {
+                $("#QuickReply").click(function () {
+                    if ($("#QuickTxt").val() == '') {
+                        $("#QuickReply").popover('show');
+                        var t = setTimeout("$('#QuickReply').popover('hide');", 2000)
+                    }
+                    else {
+                        $.post(
+                                           "/Comment/QuickReply",
+                                           {index:1, content: $("#QuickTxt").val(), topicid: $("#topicid").text(), topicuserid: $("#topicuserid").text() ,title:$("#Title").text()},
+                                           function (data) {
+                                               if (data == "ok") {
+                                                   $("#alert1").removeAttr("hidden");   //弹出提示框
+                                                   var t = setTimeout('$("#alert1").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                                   //重新加载
+                                                   var topicid=@Model.Id
+                                                   $.get(
+                                                      '/Comment/ShowReply',
+                                                        {TopicId:topicid,index:1},
+                                                   function(data){
+                                                       $("#all").html(data);
+                                                       showArea();
+                                                       ReplyToReply();
+                                                       replyPraise();
+                                                       showTool();
+                                                       ChangeColor();
+                                                       send();
+                                                       focus();
+                                                   }
+                                                   )
+                                               }
+                                               if (data == "请先登录") {
+                                                   $("#alert2").removeAttr("hidden");   //弹出提示框
+                                                   var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                               }
+                                           }
+                                           )
+                        $("#QuickTxt").val("");   //清空回复框
+                    }
+
+                });
+            }
+
+            //文章点赞
+
+            $(".topic>.like-count").click(function () {
+                //var num = $(this).text();
+                //var link = $(this);
+
+                //$.get(
+                //    "/Topic/Prasie",
+                //    { topicid: $(this).next("#topicid").text() },
+                //    function (data) {
+                //        if (data == "ok") {
+                //            link.text(parseInt(num) + 1); //将赞数加1，视觉上的加1（此时数据库的也加了一）
+                //        }
+                //        if (data == "请先登录") {
+                //            $("#alert2").removeAttr("hidden");   //弹出提示框
+                //            var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 2000)  //4秒后提示框消失
+                //        }
+                //        if (data == "no") {
+                //            link.popover('show');
+                //            var t = setTimeout("link.popover('hide');", 2000)
+
+                //        }
+                //    }
+                //)
+                var work;
+                var num = $(this).text();
+                var link = $(this);
+                var topicid = $(this).next("#topicid").text();
+                $.get(
+                        "/TopicPraiseRecord/IsExit",
+                        { topicid: $(this).next("#topicid").text() },
+                        function (data) {
+                            if (data == "exit") {
+                                link.popover('show');
+                                var t = setTimeout("link.popover('hide');", 2000)
+                                work = "stop";
+                            }
+                            if (data == "请先登录") {
+                                $("#alert2").removeAttr("hidden");   //弹出提示框
+                                var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                work = "stop";
+                            }
+                            if (data == "do") {
+                                work = "praise";
+                                alert(work + "....")
+                            }
+                            if (work == "praise") {
+                                alert("work" + work);
+                                $.get(
+                                         "/Topic/Prasie",
+                                         { topicid: topicid },
+                                         function (data) {
+                                             if (data == "ok") {
+                                                 link.text(parseInt(num) + 1); //将赞数加1，视觉上的加1（此时数据库的也加了一）
+                                                 //记录点赞
+                                                 $.get(
+                                                    "/TopicPraiseRecord/Record",
+                                                    { topicid: topicid },
+                                                    function (data) {
+                                                    }
+                                                 )
+                                                
+                                             }
+                                             if (data == "请先登录") {
+                                                 $("#alert2").removeAttr("hidden");   //弹出提示框
+                                                 var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                             }
+                                         }
+                                         )
+                            }
+                        })
+
+               
+            });
+            //评论点赞
+            function replyPraise() {
+                $(".com>.like-count").click(function () {
+                    var work;
+                    var num = $(this).text();
+                    var link = $(this);
+                    commentid = $(this).next("#commentId").text();
+                    $.get(
+                        "/ReplyPraiseRecord/IsExit",
+                         { commentId: commentid },
+                         function (data) {
+                             if (data == "exit") {
+                                 link.popover('show');
+                                 var t = setTimeout("link.popover('hide');", 2000)
+                                 work = "stop";
+                             }
+                             if (data == "请先登录") {
+                                 $("#alert2").removeAttr("hidden");   //弹出提示框
+                                 var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                 work = "stop";
+                             }
+                             if (data == "do") {
+                                 work = "praise";
+                             }
+                             if (work == "praise") {
+                                 $.get(
+                                       "/Comment/Prasie",
+                                       { commentId: commentid },
+                                       function (data) {
+                                           if (data == "ok") {
+                                               link.text(parseInt(num) + 1); //将赞数加1，视觉上的加1（此时数据库的也加了一）
+                                               //记录点赞
+                                               $.get(
+                                                  "/ReplyPraiseRecord/Record",
+                                                  { commentId: commentid },
+                                                  function (data) {
+                                                  }
+                                               )
+                                           }
+                                           if (data == "请先登录") {
+                                               $("#alert2").removeAttr("hidden");   //弹出提示框
+                                               var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 2000)  //4秒后提示框消失
+                                           }
+                                           if (data == "no") {
+                                               link.popover('show');
+                                               var t = setTimeout("link.popover('hide');", 2000)
+                                           }
+                                       }
+                                        )
+                             }
+                         }
+                        )
+
+                });
+            }
+            //鼠标滑过回复时改变回复背景颜色注意
+            ChangeColor();
+            function ChangeColor() {
+                //当鼠标滑入时将div的class换成divOver
+                $('.tab-pane>.media').hover(function () {
+                    $(this).addClass('ReplyOver');
+                    $(this).removeClass("Reply")
+                }, function () {
+                    //鼠标离开时移除divOver样式
+                    $(this).addClass('Reply');
+                    $(this).removeClass("ReplyOver")
+                    //$(this).children().children(".txt").prop("hidden", "hidden");
+                    //$(this).children().children(".post-meta").children(".btn").text("回复");
+                }
+                );
+            }
+
+            //鼠标放在头像上显示
+            showTool();
+            function showTool() {
+                $(".con a").mouseover(function () {
+                    var commentusername = $(this).next("#commentUserName").text()
+                    $("#Div").css("top", $(this).offset().top);
+                    $("#Div").css("left", $(this).offset().left);
+                    $("#messageTo").text("留言 To " + $(this).next("#commentUserName").text());
+                    $("#messageTo").attr("receiver",$(this).next("#commentUserName").text());
+                   
+                    $.get(
+                        '/UserInfo/PersonPanel',
+                        { commentuser: $(this).next("#commentUserName").text() },
+                        function (data) {
+                            $(".commentuser").text(commentusername);
+                            $("#headimg").prop("src", data.split(";")[2].split(":")[1]);
+                            $("#city").text(data.split(";")[0].split(":")[1]);
+                            $("#sex").text(data.split(";")[1].split(":")[1])
+                            $("#topicCount").text("发帖：" + data.split(";")[3].split(":")[1])
+                            $("#replyCount").text("回帖：" + data.split(";")[4].split(":")[1])
+                            $("#focusCount").text("关注：" + data.split(";")[5].split(":")[1])
+                            $("#fsCount").text("粉丝：" + data.split(";")[6].split(":")[1])
+                            $("#signature").text("签名：" + data.split(";")[7].split(":")[1])
+
+                        }
+                    )
+                    $("#Div").css("display", "inline");
+                });
+                $("#Div").mouseover(function () {
+                    $("#Div").css("display", "inline");
+                });
+                $("#Div").mouseout(function () {
+                    $("#Div").css("display", "none");
+                });
+            }
+            //发送留言
+            send();
+            function send() {
+                $("#send").click(function () {
+                    $.post(
+                        '/LeaveMsg/Send',
+                        { content: $("#msgcontent").val(), receiver: $("#messageTo").attr("receiver") },
+                        function (data) {
+                            $('#myModal').modal('hide');
+                            $("#alert1").removeAttr("hidden");   //弹出提示框
+                            var t = setTimeout('$("#alert1").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                        }
+                    )
+
+                });
+            }
+           
+            //关注
+            focus();
+            function focus() {
+                $("#focus").click(function () {
+                    $.get(
+                        '/Focus/focus',
+                        { focusname: $("#commentUserName").text() },
+                        function (data) {
+                            $("#alert3").removeAttr("hidden");   //弹出提示框
+                            var t = setTimeout('$("#alert3").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                        }
+                    )
+                });
+            }
+            
+            //下一页
+            $("#next").click(function () {
+                $.post(
+                    '/Comment/ShowReply',
+                    { TopicId: $('#topicid').text(), index: parseInt($("#index").text())+1 },
+                function (data){
+                    $('#all').append(data);
+                    $("#index").text(parseInt($("#index").text()) + 1);
+                    showArea();
+                    ReplyToReply();
+                    replyPraise();
+                    showTool();
+                    ChangeColor();
+                    send();
+                    focus();
+                }
+                )
+            });
+        });
+     
+    </script>
+}·

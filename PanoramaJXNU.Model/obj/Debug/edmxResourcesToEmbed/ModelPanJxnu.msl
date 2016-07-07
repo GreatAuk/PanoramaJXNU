@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Panorama_JXNUModelStoreContainer" CdmEntityContainer="Panorama_JXNUEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.Admins">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PassWords" ColumnName="PassWords" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Collect">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.Collect">
+        <MappingFragment StoreEntitySet="Collect">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="TopicTitle" ColumnName="TopicTitle" />
+          <ScalarProperty Name="CollectTime" ColumnName="CollectTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comment">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="TopicTitle" ColumnName="TopicTitle" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreatTime" ColumnName="CreatTime" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TopicUserId" ColumnName="TopicUserId" />
+          <ScalarProperty Name="Praise" ColumnName="Praise" />
+          <ScalarProperty Name="UserImg" ColumnName="UserImg" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Focus">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.Focus">
+        <MappingFragment StoreEntitySet="Focus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FriendName" ColumnName="FriendName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeaveMsg">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.LeaveMsg">
+        <MappingFragment StoreEntitySet="LeaveMsg">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Users" ColumnName="Users" />
+          <ScalarProperty Name="Friend" ColumnName="Friend" />
+          <ScalarProperty Name="Sender" ColumnName="Sender" />
+          <ScalarProperty Name="SenderHead" ColumnName="SenderHead" />
+          <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReplyPraiseRecord">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.ReplyPraiseRecord">
+        <MappingFragment StoreEntitySet="ReplyPraiseRecord">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Topic">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.Topic">
+        <MappingFragment StoreEntitySet="Topic">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="PraiseCount" ColumnName="PraiseCount" />
+          <ScalarProperty Name="BroseCount" ColumnName="BroseCount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TopicPraiseRecord">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.TopicPraiseRecord">
+        <MappingFragment StoreEntitySet="TopicPraiseRecord">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PWord" ColumnName="PWord" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="HeadImg" ColumnName="HeadImg" />
+          <ScalarProperty Name="RegTime" ColumnName="RegTime" />
+          <ScalarProperty Name="DataLastLogin" ColumnName="DataLastLogin" />
+          <ScalarProperty Name="TopicCount" ColumnName="TopicCount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="Signature" ColumnName="Signature" />
+          <ScalarProperty Name="City" ColumnName="City" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PanoCollect">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.PanoCollect">
+        <MappingFragment StoreEntitySet="PanoCollect">
+          <ScalarProperty Name="CollectTime" ColumnName="CollectTime" />
+          <ScalarProperty Name="panoHtml" ColumnName="panoHtml" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CollectId" ColumnName="CollectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PanoPraiseRecord">
+      <EntityTypeMapping TypeName="Panorama_JXNUModel.PanoPraiseRecord">
+        <MappingFragment StoreEntitySet="PanoPraiseRecord">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="panoHtml" ColumnName="panoHtml" />
+          <ScalarProperty Name="PraiseId" ColumnName="PraiseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

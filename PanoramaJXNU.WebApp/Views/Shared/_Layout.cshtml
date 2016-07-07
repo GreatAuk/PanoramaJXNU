@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/master/style.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="~/Scripts/move-top.js"></script>
+    <script src="~/Scripts/easing.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(function () { $("[data-toggle='popover']").popover(); });
+            //$('#Logined').css("display", "none");
+        })
+        $(document).ready(function () {
+            $("#krpanoSWFObject:first-child").append("<div id='ChooseDIV' class='ChoosePlacs'><h1>1111111111111</h1></div>");
+        });
+
+
+    </script>
+    @RenderSection("top1", false)
+    <style>
+        #toTop {
+            display: none;
+            text-decoration: none;
+            position: fixed;
+            bottom: 14px;
+            right: 3%;
+            overflow: hidden;
+            width: 40px;
+            height: 40px;
+            border: none;
+            text-indent: 100%;
+            background: url("../img/to-top1.png") no-repeat 0px 0px;
+        }
+
+        .dropdown ul {
+            font-family: "Helvetica","Tahoma","Arial","PingFang SC","Microsoft JhengHei","SimSun","sans-serif";
+            margin-top: 7px;
+            padding: 5px;
+            background: #fff;
+            box-shadow: 0 1px 4px #ccc;
+            color: #2f2f2f;
+            min-width: 100px;
+            border: none;
+            border-radius: 5px;
+        }
+
+            .dropdown ul a {
+                margin: 0 !important;
+                font-size: 15px !important;
+            }
+
+        #head-img:hover {
+            opacity: 0.5;
+        }
+        #head-img{
+            height:50px;
+            background-color:black;
+        }
+    </style>
+</head>
+<body>
+    <!-- header -->
+    <div class="banner">
+
+        <div class="header-bottom">
+            <div class="container">
+                <div class="logo">
+                    <a href="~/Home/Index"><img src="~/Content/master/panoJxnu_logo.png" class="img-responsive" alt="" /></a>
+                </div>
+                <div class="head-nav">
+                    <span class="menu"> </span>
+                    <ul class="cl-effect-15">
+                        <li><a href="~/Home/Index" data-hover=" 首页">首页</a></li>
+                        <li><a href="~/Panorama/Index" data-hover="全景游览">全景游览</a></li>
+                        <li><a href="~/Topic/Index" data-hover="论坛">论坛</a></li>
+                        <li><a href="about.html" data-hover="关于">关于</a></li>
+                        <li id="showLogin"><a href="~/Login/Index" data-hover="登录">登录</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img class="img-circle" id="head-img" src="~/Content/head/default.gif" alt="Bluemoon User">
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a id="logout" href="#">
+                                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp&nbsp注销
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/UserInfo/Index">
+                                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp&nbsp个人中心
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <div class="clearfix"> </div>
+                    </ul>
+
+                </div>
+
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <!-- script-for-nav -->
+        <script>
+            $("span.menu").click(function () {
+                $(".head-nav ul").slideToggle(300, function () {
+                    // Animation complete.
+                });
+            });
+        </script>
+        <!-- script-for-nav -->
+        <i class="line"> </i>
+
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+    <!-- footer -->
+    <i class="line"> </i>
+    <div class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="col-md-4 lates">
+                    <h4>网站开发人员:</h4>
+                    <div class="latest-top">
+                        <div class="latest-left">
+                            <img src="~/Content/master/man.png" class="img-responsive" alt="" />
+                        </div>
+                        <div class="latest-right">
+                            <p>Mauris orci purus, ultrices dapibus justo non, eleifend consequat lorem. </p>
+                            <h6>July 17, 2013</h6>
+                        </div>
+
+                        @*<ul class="list-group" style="margin:2px">
+                            <li style="padding:0px;border:0px" class="list-group-item">
+                                <a herf="#">
+                                <i class="glyphicon glyphicon-off">
+                                </i>&nbsp&nbsp注销
+                                </a>
+                                </li>
+                                <hr style="margin:2px" />
+                                <li style="padding:0px;border:0px" class="list-group-item">
+                                    <a herf="#">
+                                <i class="glyphicon glyphicon-list-alt">&nbsp&nbsp个人中心</a>
+                                </li>
+                            </ul>*@
+
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="latest-top">
+                        <div class="latest-left">
+                            <img src="~/Content/master/flow.png" class="img-responsive" alt="">
+                        </div>
+                        <div class="latest-right">
+                            <p>Pellentesque et magna malesuada, scelerisque elit ac, convallis lacus.  </p>
+                            <h6>July 16, 2013</h6>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div class="col-md-4 confo">
+                    <h4>地址:</h4>
+                    <ul class="number1">
+                        <li>
+                            <span><i class="roc1"> </i>101 West Street, New York, NY 12345</span>
+                        </li>
+                        <li>
+                            <span><i class="phone1"> </i>phone:(000) 888 88888</span>
+                        </li>
+                        <li><a href="mailto:info@example.com"><i class="mail1"> </i>info@sitename.com </a></li>
+                        
+                        <li>
+                            <span><i class="sky"> </i>atech-support</span>
+                            <div class="clearfix"> </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4 social">
+                    <h4>We’re social:</h4>
+
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="foot">
+                <p>Copyright &copy; 2016.Jiangxi Normal University.</p>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    @RenderSection("top2", false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+            };
+            */
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+        //注销
+        $("#logout").click(function () {
+            $.get(
+                '../Logout.ashx',
+                {},
+                function () {
+                    $(".dropdown").css("display", "none");
+                    $("#showLogin").css("display", "inline");
+                }
+            )
+        });
+    </script>
+    <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+</body>
+</html>

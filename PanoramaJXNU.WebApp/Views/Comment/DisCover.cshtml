@@ -1,0 +1,9 @@
+﻿@model List<PanoramaJXNU.Model.Comment>
+@foreach (var item in Model)
+{
+    <li class="recentcomments">
+        <a href="#" rel="external nofollow" class="url">@item.UserName</a>
+        on
+        <a href="/topic/Detail?topicid=@item.TopicId">@item.TopicTitle</a>
+    </li>
+}

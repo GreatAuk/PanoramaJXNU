@@ -1,0 +1,85 @@
+﻿@model List<PanoramaJXNU.Model.Comment>
+<div class="perInfo">
+    <div class="titleInfoBorder">
+        <span>我的消息</span>
+    </div>
+    <div class="firstTabBox lineSpace">
+        <div class="col-sm-9 col-lg-10" style="width: 850px;">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="pull-right">
+                        <div class="btn-group mr10">
+                            <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip" title="" data-original-title="Report Spam"><i class="glyphicon glyphicon-exclamation-sign"></i></button>
+                            <button class="btn btn-sm btn-white tooltips" id="delete" type="button" data-toggle="tooltip" title="" data-original-title="Delete"><i class="glyphicon glyphicon-trash"></i></button>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-white" type="button"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                            <button class="btn btn-sm btn-white" type="button"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                        </div>
+                    </div><!-- pull-right -->
+
+                    <h5 class="subtitle mb5">全选</h5><input style="margin-left: 8px;" type="checkbox" id="all">
+                    
+                    <div class="table-responsive">
+                        <table class="table table-email">
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="unread selected">
+                                    <td>
+                                        <div class="ckbox ckbox-success">
+                                            <input class="ck" type="checkbox" id="checkbox">
+                                            <label for="checkbox1"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="" class="star"><i class="glyphicon glyphicon-star"></i></a>
+                                    </td>
+                                    <td>
+                                        <div class="media">
+                                            <a href="#" class="pull-left">
+                                                <img alt="" class="img-circle" height="30" width="30" src="@item.UserImg" />
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="media-meta pull-right">@item.CreatTime</span>
+                                                <h5 style="display:inline;" class="text-primary">@(item.UserName)</h5><span style="font-size: 14px; margin-left: 20px; ">回复了你的帖子</span><h5 style="color: #337ab7; display: inline; ">@(item.TopicTitle)</h5>
+                                                <small class="text-muted"></small>
+                                                <p style="margin-top:15px" class="email-summary"> @item.Content </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                }
+                                
+                            </tbody>
+                        </table>
+                    </div><!-- table-responsive -->
+
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".member_main").css("height", "");
+    //全选
+    $("#all").click(function () {
+        if ($(".ck").prop("checked") == false) {
+            $(".ck").prop("checked", true);
+        }
+        else {
+            $(".ck").prop("checked",false);
+        }
+        
+    });
+    //if ($("#all").prop("checkd") == "checked") {
+    //    alert("2233");
+    //    $(".ck").prop("checked", "checked");
+    //}
+</script>
+       

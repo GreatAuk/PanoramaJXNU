@@ -1,0 +1,248 @@
+<krpano version="1.19" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="true"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               webvr="true"
+	               littleplanetintro="true"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext="loading..."
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+	</action>
+
+
+	
+	<scene name="scene_1" title="城建学院门口" onstart="" thumburl="panos/1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-153.552" vlookat="-0.037" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/1.tiles/pano_%s.jpg" />
+
+			<cube url="panos/1.tiles/mobile/pano_%s.jpg" devices="mobile" />
+		</image>
+
+		<!-- place your scene hotspots here -->
+
+	</scene>
+
+  <!--右键菜单调用的方法 star-->
+  <contextmenu fullscreen="true" versioninfo="true">
+    <item name="kr" caption="KRPANO"     />
+    <item name="fs" caption="FULLSCREEN" />
+    <item name="cc" caption="更改控制模式"  onclick="cm_changecontrolmode();"  separator="true" />
+    <item name="nv" caption="正常视角" onclick="cm_normal_view();"        showif="view.vlookatrange == 180" separator="true"      />
+    <item name="fv" caption="鱼眼视角" onclick="cm_fisheye_view();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
+    <item name="sv" caption="立体视角" onclick="cm_stereographic_view();" showif="view.vlookatrange == 180" devices="flash|webgl" />
+    <item name="av" caption="建筑视角" onclick="cm_architectural_view();" showif="view.vlookatrange == 180"                       />
+    <item name="pv" caption="帕尼尼视角" onclick="cm_pannini_view();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
+    <item name="lp" caption="小行星视角" onclick="cm_littleplanet_view();"  showif="view.vlookatrange == 180" devices="flash|webgl" />
+  </contextmenu>
+
+  <action name="cm_changecontrolmode">
+    switch(control.mouse, moveto, drag);
+    switch(control.touch, moveto, drag);
+  </action>
+
+  <action name="cm_look_straight">
+    if(view.vlookat LT -80 OR view.vlookat GT +80,
+    tween(view.vlookat, 0.0, 1.0, easeInOutSine);
+    tween(view.fov,     100, distance(150,0.8));
+    );
+  </action>
+
+  <action name="cm_normal_view">
+    cm_look_straight();
+    tween(view.architectural, 0.0, distance(1.0,0.5));
+    tween(view.pannini,       0.0, distance(1.0,0.5));
+    tween(view.fisheye,       0.0, distance(1.0,0.5));
+  </action>
+
+  <action name="cm_architectural_view">
+    cm_look_straight();
+    tween(view.architectural, 1.0, distance(1.0,0.5));
+    tween(view.pannini,       0.0, distance(1.0,0.5));
+    tween(view.fisheye,       0.0, distance(1.0,0.5));
+  </action>
+
+  <action name="cm_fisheye_view">
+    cm_look_straight();
+    tween(view.architectural, 0.0,  distance(1.0,0.5));
+    tween(view.pannini,       0.0,  distance(1.0,0.5));
+    tween(view.fisheye,       0.35, distance(1.0,0.5));
+  </action>
+
+  <action name="cm_stereographic_view">
+    cm_look_straight();
+    tween(view.architectural, 0.0, distance(1.0,0.5));
+    tween(view.pannini,       0.0, distance(1.0,0.5));
+    tween(view.fisheye,       1.0, distance(1.0,0.8));
+  </action>
+
+  <action name="cm_pannini_view">
+    cm_look_straight();
+    tween(view.architectural, 0.0, distance(1.0,0.5));
+    tween(view.pannini,       1.0, distance(1.0,0.8));
+    if(view.fisheye LT 0.1,
+    tween(view.fisheye, 1.0, distance(1.0,0.8));
+    );
+  </action>
+
+  <action name="cm_littleplanet_view">
+    tween(view.architectural, 0.0, distance(1.0,0.5));
+    tween(view.pannini,       0.0, distance(1.0,0.5));
+    tween(view.fisheye,       1.0, distance(1.0,0.8));
+    tween(view.fov,           150, distance(150,0.8));
+    tween(view.vlookat,        90, distance(100,0.8));
+    add(new_hlookat, view.hlookat, 123.0);
+    tween(view.hlookat, get(new_hlookat), distance(100,0.8));
+  </action>
+  <!--右键菜单设置 END-->
+
+  <!--自动旋转控制 Stat-->
+  <autorotate enabled="true"
+    waittime="2.0"
+    speed="1.0"
+    horizon="0.0"
+  />
+
+  <events name="onautorotateevents" keep="true" onautorotateoneround="nextscene()"/>
+
+  <action name="nextscene">
+    autorotate.stop();wait(1);
+    set(ns, get(scene[get(xml.scene)].index));
+    set(maxs, get(scene.count));
+    add(ns,1);
+    if(ns == maxs, set(ns,0));
+    loadscene(get(scene[get(ns)].name), null, MERGE, BLEND(1.5));
+    autorotate.start();
+  </action>
+  <!--自动旋转控制 ＥＮＤ-->
+  <!--背景音乐播放控制 START-->
+  <plugin name="soundinterface"
+        url.flash="%SWFPATH%/plugins/soundinterface.swf"
+        url.html5="%SWFPATH%/plugins/soundinterface.js"
+        rootpath=""
+        preload="true"
+        keep="true"
+        />
+  <action name="bgsnd_action" autorun="onstart">
+    playsound(bgsnd, '../sound/FlowerDance.mp3', 0);
+  </action>
+  <!--背景音乐播放控制 END-->
+
+  <!--Google地图插件配置 start-->
+  <!--<plugin name="map" devices="html5"
+        url="plugins/googlemaps.js"
+        align="leftbottom" width="400" height="300" x="0" y="0"
+        keep="true"
+        maptype="normal"
+        language="zh-CN"
+        lat="28.6789742555"
+        lng="116.0315039031"
+        zoom="15"
+        tilt="0"
+        heading="0"
+        controls="zoom|maptype"
+        poi="false"
+        activespotenabled="false"
+        bgcolor="0x000000" bgalpha="0.0"
+        onmapready=""
+        onmaptypechanged=""
+        onmapmoved=""
+        onmapzoomed=""
+>
+    --><!--<spotstyle name="style1" ...="" />--><!--
+
+    <spot name="spot1"
+              lat="28.6772669698"
+              lng="116.0340656928"
+              heading="0"
+              active="true" />
+    <spot name="spot2"
+              lat="28.6800202555"
+              lng="116.0373429031"
+              heading="0"
+              active="true" />
+    <spot name="spot3"
+              lat="28.6772669698"
+              lng="116.0340656928"
+              heading="0"
+              active="true" />
+
+    <radar visible="true"
+                size="300"
+                alpha="0.33"
+                fillcolor="0xFFFFFF"
+                fillalpha="1.0"
+                linecolor="0x00FF00"
+                linealpha="0.5"
+                linewidth="0.5"
+                dragable="true"
+                headingoffset="0" />
+  </plugin>-->
+  <!--Google地图插件配置 ＥＮＤ-->
+</krpano>

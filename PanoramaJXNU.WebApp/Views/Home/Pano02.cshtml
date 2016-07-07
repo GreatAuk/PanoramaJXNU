@@ -1,0 +1,207 @@
+﻿@{
+    ViewBag.Title = "Pano02";
+}
+
+@section top1{
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/Pano.css" rel="stylesheet" />
+    <link href="~/Content/Topic/css/main5152.css" rel="stylesheet" />
+
+    <script>
+       
+
+        //文章点赞
+
+        $("#like-a").click(function () {
+            var work;
+            var num = $(this).text();
+            var link = $(this);
+            var topicid = $(this).next("#topicid").text();
+            $.get(
+                    "/TopicPraiseRecord/IsExit",
+                    { topicid: $(this).next("#topicid").text() },
+                    function (data) {
+                        if (data == "exit") {
+                            link.popover('show');
+                            var t = setTimeout("link.popover('hide');", 2000)
+                            work = "stop";
+                        }
+                        if (data == "请先登录") {
+                            $("#alert2").removeAttr("hidden");   //弹出提示框
+                            var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                            work = "stop";
+                        }
+                        if (data == "do") {
+                            work = "praise";
+                            alert(work + "....")
+                        }
+                        if (work == "praise") {
+                            alert("work" + work);
+                            $.get(
+                                     "/Topic/Prasie",
+                                     { topicid: topicid },
+                                     function (data) {
+                                         if (data == "ok") {
+                                             link.text(parseInt(num) + 1); //将赞数加1，视觉上的加1（此时数据库的也加了一）
+                                             //记录点赞
+                                             $.get(
+                                                "/TopicPraiseRecord/Record",
+                                                { topicid: topicid },
+                                                function (data) {
+                                                }
+                                             )
+
+                                         }
+                                         if (data == "请先登录") {
+                                             $("#alert2").removeAttr("hidden");   //弹出提示框
+                                             var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                                         }
+                                     }
+                                     )
+                        }
+                    })
+
+
+        });
+    </script>
+    <style>
+        #like-a, #collect-a {
+            background-color: #334050;
+            border: none;
+            /*width:40px;*/
+            outline: none;
+            height: 40px;
+            margin-top: -5px;
+            position: relative;
+        }
+
+            #like-a:hover, #collect-a:hover {
+                color: #F43C04;
+                cursor: pointer;
+            }
+
+        .glyphicon-heart, .glyphicon-star {
+            font-size: 25px;
+            top: 3px;
+        }
+
+        #panoPraiseForm, #PanoCollectForm {
+            display: block;
+            float: left;
+            width: 60px;
+        }
+        #alert1 {
+            width: 50px;
+            position: fixed;
+            bottom: 100px;
+            right: 10px;
+        }
+
+        #alert2 {
+            width: 200px;
+            position: fixed;
+            bottom: 100px;
+            right: 10px;
+        }
+    </style>
+
+}
+<iframe id="Iframe" src="~/Krpano/vtour_02/tour.html" width="100%" height="670px" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div id="share-div">
+    <!--<wb:share-button addition="simple" type="icon"></wb:share-button>-->
+    @*@using (Ajax.BeginForm("PanoPraise", "Home", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterPanoPraise" }, new { id = "panoPraiseForm" }))
+    {*@
+        <div id="share-content">
+            @*<a id="like-a" class="glyphicon glyphicon-heart" aria-hidden="true">赞</a>*@
+            <button data-trigger="hover" data-content="no" type="button" id="like-a" value="赞">
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </button>
+            <label id="PraiseId" hidden="hidden"></label>
+            <label id="topicuserid" hidden="hidden"></label>
+        </div>
+    @*}*@
+
+    @*@using (Ajax.BeginForm("PanoCollect", "Home", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterPanoCollect" }, new { id = "PanoCollectForm" }))
+    {*@
+        <div id="share-content">
+            @*<a id="like-a" class="glyphicon glyphicon-heart" aria-hidden="true">赞</a>*@
+            <button data-trigger="hover" data-content="no" type="submit" id="collect-a" value="赞">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </button>
+            <label id="CollextId" hidden="hidden"></label>
+            <label id="topicuserid" hidden="hidden"></label>
+        </div>
+    @*}*@
+</div>
+<div hidden="hidden" id="alert1" class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>OK</strong>
+</div>
+<div hidden="hidden" id="alert2" class="alert alert-info alert-dismissible" role="alert">
+    <button type="button"  class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <a href="/Login/Index"><strong>请先登录！！</strong></a>
+</div>
+@section top2{
+    <script>
+        var img = '@ViewBag.headImg'
+        Is(img);
+        function Is(img) {
+            if (img != 'None') {
+                $("#showLogin").css("display", "none");
+                $("#head-img").prop("src", img);
+            }
+            else {
+                $(".dropdown").css("display", "none");
+            }
+        }
+        //点赞
+        $("#like-a").click(function () {
+            var PanoHtml = window.location.pathname;
+            $.get(
+                "/Home/PanoPraise",
+                { PanoHtml: PanoHtml },
+                function (data) {
+                    if (data == "请先登录") {
+                        $("#alert2").removeAttr("hidden");   //弹出提示框
+                        var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                    }
+                    if(data=="ok") {
+                        $("#alert1").removeAttr("hidden");   //弹出提示框
+                        var t = setTimeout('$("#alert1").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                    }
+                    if (data == "no") {
+                        $("#like-a").popover('show');
+                        var t = setTimeout(" $('#like-a').popover('hide');", 2000)
+                    }
+                }
+                )
+        });
+        //收藏
+        $("#collect-a").click(function () {
+            var PanoHtml = window.location.pathname;
+            $.get(
+                "/Home/Collect",
+                { PanoHtml: PanoHtml },
+                function (data) {
+                    if (data == "请先登录") {
+                        $("#alert2").removeAttr("hidden");   //弹出提示框
+                        var t = setTimeout('$("#alert2").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                    }
+                    if (data == "ok") {
+                        $("#alert1").removeAttr("hidden");   //弹出提示框
+                        var t = setTimeout('$("#alert1").prop("hidden", "hidden");', 3000)  //4秒后提示框消失
+                    }
+                    if (data == "no") {
+                        $("#collect-a").popover('show');
+                        var t = setTimeout(" $('#collect-a').popover('hide');", 2000)
+                    }
+                }
+                )
+        });
+    </script>
+    
+    }

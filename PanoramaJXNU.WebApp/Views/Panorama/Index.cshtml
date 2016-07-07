@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "全景游览";
+}
+@section top1{
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    <link href="~/Content/Pano.css" rel="stylesheet" />
+}
+
+<iframe id="Iframe" src="~/Krpano/vtour1/tour.html" width="100%" height="740px" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+<div id="share-div">
+    <wb:share-button addition="simple" type="icon"></wb:share-button>
+    <span class="like-span">
+        <a onclick="ajaxmenu(this, 3000, 1, 0, '12');return false;" href="forum.php?mod=misc&amp;action=recommend&amp;do=add&amp;tid=351185&amp;hash=36dc0db7" id="recommend_add_s" sl-processed="1" initialized="true" style="color: rgb(87, 173, 253);">
+            <i class="cr_icon" style="background-position: -26px -121px;"></i>赞
+        </a>
+    </span>
+</div>
+<script type="text/javascript">
+
+    var img = '@ViewBag.headImg'
+    Is(img);
+    function Is(img) {
+        if (img != 'None') {
+            $("#showLogin").css("display", "none");
+            $("#head-img").prop("src", img);
+        }
+        else {
+            $(".dropdown").css("display", "none");
+        }
+    }
+</script>

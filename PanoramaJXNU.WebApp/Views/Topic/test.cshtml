@@ -1,0 +1,39 @@
+﻿@using System.Text.RegularExpressions;
+@{
+    ViewBag.Title = "test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Raw(ViewBag.img)
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@*@{
+    int start;
+    int end;
+    string value="";
+    string str="";
+    if ((start = ((string)ViewBag.content).IndexOf("<img")) != -1)
+    {
+        end = ((string)ViewBag.content).IndexOf(">", start)-261;
+        value = ((string)ViewBag.content).Substring(start, end);
+         str=((string)ViewBag.content).Remove(start,end);
+       
+    }
+        @Html.Raw(value)
+}*@
+

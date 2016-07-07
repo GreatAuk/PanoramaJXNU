@@ -1,0 +1,182 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<head>
+    <title>注册全景师大</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/templatemo_style.css" rel="stylesheet" />
+    <script>
+
+        function afterRegister(data) {
+            $('#textRemind').css("display", "block");
+            var serviceData = data.split(":");
+            if (serviceData[0] == "ok") {
+                window.location.href = "/Login/index";
+            }
+            else {
+                $('#textWarning').css("display", "block")
+                $("body").click(function () {
+                   $('#textWarning').css("display", "none")
+                })
+
+            }
+        }
+
+        //------------------表单验证---------------------
+        $().ready(function () {
+            // 在键盘按下并释放及提交后验证提交表单
+            $("#RegisterForm").validate({
+                rules: {
+                    UserName: {
+                        required: true,
+                        rangelength: [2, 10]
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 5
+                    },
+                    pwdconfirm: {
+                        required: true,
+                        minlength: 5,
+                        equalTo: "#password"
+                    }
+                },
+                messages: {
+                    UserName: {
+                        required: "请输入用户名",
+                        rangelength: " 用户名必需由两个到十个以内的非数字组成 "
+                    },
+                    Email: "请输入一个正确的邮箱,包括字符“@@”",
+                    password: {
+                        required: "请输入密码",
+                        minlength: "密码长度不能小于 5 个字母"
+                    },
+                    pwdconfirm: {
+                        required: "请输入密码",
+                        minlength: "密码长度不能小于 5 个字母",
+                        equalTo: "两次密码输入不一致"
+                    }
+                }
+            });
+        }
+            )
+
+    </script>
+    <style>
+        input.error {
+            border: 1px solid red;
+        }
+
+        label.error {
+            padding-left: 16px;
+            padding-bottom: 2px;
+            font-weight: bold;
+            color: #EA5200;
+            padding-top: 20px;
+        }
+
+        #HaveCount {
+            width: 145px;
+        }
+
+        #textRemind {
+            color: #C5C5C5;
+            font-size: 16px;
+            margin-left: 42%;
+            display: none;
+        }
+        #textWarning {
+            margin-left: 42%;
+            font-size: 16px;
+            color: red;
+            display:none;
+        }
+    </style>
+</head>
+<body class="templatemo-bg-image-2">
+    <div class="container">
+        <div class="col-md-12">
+            @using (Ajax.BeginForm("UserRegister", "Register", new { }, new AjaxOptions() { HttpMethod = "get", OnSuccess = "afterRegister", LoadingElementId = "div1" }, new { id = "RegisterForm", @class = "form-horizontal templatemo-contact-form-1" }))
+            {
+                @*<form class="form-horizontal templatemo-contact-form-1" role="form" action="#" method="post">*@
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h1 class="margin-bottom-15">注册全景师大</h1>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @*<label for="name" class="control-label">昵称 *</label>*@
+                        <div class="templatemo-input-icon-container">
+                            <i class="fa fa-user"></i>
+                            <input type="text" class="form-control" id="name" name="UserName" placeholder="昵称 *">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @*<label for="email" class="control-label">Email *</label>*@
+                        <div class="templatemo-input-icon-container">
+                            <i class="fa fa-envelope-o"></i>
+                            <input type="email" class="form-control" id="email" name="Email" placeholder="Email *">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @*<label for="password" class="control-label">密码 *</label>*@
+                        <div class="templatemo-input-icon-container">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="密码 *">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @*<label for="pwdconfirm" class="control-label">密码确认 *</label>*@
+                        <div class="templatemo-input-icon-container">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" class="form-control" id="pwdconfirm" name="pwdconfirm" placeholder="密码确认 *">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="确认注册" class="btn btn-success pull-right">
+                    </div>
+                    <div class="col-md-12" id="HaveCount">
+                        <a href="~/Login/Index" class="text-center" style="text-decoration:none">已有账号？去登录</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <p id="textRemind">正在注册...</p>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <div class="col-md-12">
+                        <p id="textWarning">注册失败！</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

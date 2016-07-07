@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{834A05DB-5C34-40AC-AE5D-95609E22467C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PanoramaJXNU.BLL</RootNamespace>
+    <AssemblyName>PanoramaJXNU.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminsService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="CollectService.cs" />
+    <Compile Include="CommentService.cs" />
+    <Compile Include="FocusService.cs" />
+    <Compile Include="LeaveMsgService.cs" />
+    <Compile Include="PanoCollectService.cs" />
+    <Compile Include="PanoPraiseRecordService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReplyPraiseRecordService.cs" />
+    <Compile Include="TopicPraiseRecordService.cs" />
+    <Compile Include="TopicService.cs" />
+    <Compile Include="UserInfoService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PanoramaJXNU.DALFactory\PanoramaJXNU.DALFactory.csproj">
+      <Project>{fa537440-2306-4d62-8015-f5d88c2e6479}</Project>
+      <Name>PanoramaJXNU.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PanoramaJXNU.IBLL\PanoramaJXNU.IBLL.csproj">
+      <Project>{ba19f2ba-1e76-47da-a855-54eb825d5e80}</Project>
+      <Name>PanoramaJXNU.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PanoramaJXNU.IDAL\PanoramaJXNU.IDAL.csproj">
+      <Project>{1bcb467b-b511-460b-9cae-6981ff793f66}</Project>
+      <Name>PanoramaJXNU.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PanoramaJXNU.Model\PanoramaJXNU.Model.csproj">
+      <Project>{44bb5b19-979f-4f95-9723-390ff71d72f6}</Project>
+      <Name>PanoramaJXNU.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

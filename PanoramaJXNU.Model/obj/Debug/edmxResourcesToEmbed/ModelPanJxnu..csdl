@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Panorama_JXNUModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PassWords" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Collect">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="TopicId" Type="Int32" Nullable="false" />
+    <Property Name="TopicTitle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CollectTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Topic" Relationship="Self.FK__Collect__TopicId__2E1BDC42" FromRole="Collect" ToRole="Topic" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Collect__UserId__2D27B809" FromRole="Collect" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Focus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="FriendId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Focus__UserId__30F848ED" FromRole="Focus" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="LeaveMsg">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Users" Type="Int32" Nullable="false" />
+    <Property Name="Friend" Type="Int32" Nullable="false" />
+    <Property Name="Sender" Type="Int32" Nullable="false" />
+    <Property Name="Receiver" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SendTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ReadTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Topic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ReplyCount" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PraiseCount" Type="Int32" Nullable="false" />
+    <Property Name="BroseCount" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Collect" Relationship="Self.FK__Collect__TopicId__2E1BDC42" FromRole="Topic" ToRole="Collect" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Topic__UserId__20C1E124" FromRole="Topic" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PWord" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Telephone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HeadImg" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="RegTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DataLastLogin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TopicCount" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Collect" Relationship="Self.FK__Collect__UserId__2D27B809" FromRole="UserInfo" ToRole="Collect" />
+    <NavigationProperty Name="Focus" Relationship="Self.FK__Focus__UserId__30F848ED" FromRole="UserInfo" ToRole="Focus" />
+    <NavigationProperty Name="Topic" Relationship="Self.FK__Topic__UserId__20C1E124" FromRole="UserInfo" ToRole="Topic" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__TopicUs__267ABA7A" FromRole="UserInfo" ToRole="Comment" />
+    <NavigationProperty Name="Comment1" Relationship="Self.FK__Comment__UserId__25869641" FromRole="UserInfo" ToRole="Comment" />
+    <Property Name="DelFlag" Type="Byte" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="Content" />
+      <PropertyRef Name="CreatTime" />
+      <PropertyRef Name="TopicId" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="TopicUserId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CommentId" Type="Int32" />
+    <Property Name="TopicId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="TopicUserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Comment__TopicUs__267ABA7A" FromRole="Comment" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Self.FK__Comment__UserId__25869641" FromRole="Comment" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK__Collect__TopicId__2E1BDC42">
+    <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+    <End Role="Collect" Type="Self.Collect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Collect">
+        <PropertyRef Name="TopicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Collect__UserId__2D27B809">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Collect" Type="Self.Collect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Collect">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Focus__UserId__30F848ED">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Focus" Type="Self.Focus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Focus">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Topic__UserId__20C1E124">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Topic" Type="Self.Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Topic">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__TopicUs__267ABA7A">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="TopicUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__UserId__25869641">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Panorama_JXNUEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admins" />
+    <EntitySet Name="Collect" EntityType="Self.Collect" />
+    <EntitySet Name="Focus" EntityType="Self.Focus" />
+    <EntitySet Name="LeaveMsg" EntityType="Self.LeaveMsg" />
+    <EntitySet Name="Topic" EntityType="Self.Topic" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" />
+    <AssociationSet Name="FK__Collect__TopicId__2E1BDC42" Association="Self.FK__Collect__TopicId__2E1BDC42">
+      <End Role="Topic" EntitySet="Topic" />
+      <End Role="Collect" EntitySet="Collect" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Collect__UserId__2D27B809" Association="Self.FK__Collect__UserId__2D27B809">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Collect" EntitySet="Collect" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Focus__UserId__30F848ED" Association="Self.FK__Focus__UserId__30F848ED">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Focus" EntitySet="Focus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Topic__UserId__20C1E124" Association="Self.FK__Topic__UserId__20C1E124">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Topic" EntitySet="Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__TopicUs__267ABA7A" Association="Self.FK__Comment__TopicUs__267ABA7A">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__UserId__25869641" Association="Self.FK__Comment__UserId__25869641">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

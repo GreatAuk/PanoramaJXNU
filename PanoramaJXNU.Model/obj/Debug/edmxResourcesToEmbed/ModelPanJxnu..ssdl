@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Panorama_JXNUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PassWords" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Collect">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="TopicId" Type="int" Nullable="false" />
+    <Property Name="TopicTitle" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="CollectTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“Panorama_JXNU.dbo.Comment”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="Content" />
+      <PropertyRef Name="CreatTime" />
+      <PropertyRef Name="TopicId" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="TopicUserId" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="CreatTime" Type="datetime" Nullable="false" />
+    <Property Name="CommentId" Type="int" />
+    <Property Name="TopicId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="TopicUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Focus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="FriendId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LeaveMsg">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Users" Type="int" Nullable="false" />
+    <Property Name="Friend" Type="int" Nullable="false" />
+    <Property Name="Sender" Type="int" Nullable="false" />
+    <Property Name="Receiver" Type="int" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="SendTime" Type="datetime" Nullable="false" />
+    <Property Name="ReadTime" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Topic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReplyCount" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="PraiseCount" Type="int" Nullable="false" />
+    <Property Name="BroseCount" Type="int" Nullable="false" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="PWord" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Gender" Type="varchar" MaxLength="5" />
+    <Property Name="Telephone" Type="varchar" MaxLength="100" />
+    <Property Name="HeadImg" Type="varchar" MaxLength="100" />
+    <Property Name="RegTime" Type="datetime" Nullable="false" />
+    <Property Name="DataLastLogin" Type="datetime" Nullable="false" />
+    <Property Name="TopicCount" Type="int" Nullable="false" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+    <Property Name="DelFlag" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Collect__TopicId__2E1BDC42">
+    <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+    <End Role="Collect" Type="Self.Collect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Collect">
+        <PropertyRef Name="TopicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Collect__UserId__2D27B809">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Collect" Type="Self.Collect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Collect">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__TopicUs__267ABA7A">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="TopicUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__UserId__25869641">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Focus__UserId__30F848ED">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Focus" Type="Self.Focus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Focus">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Topic__UserId__20C1E124">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Topic" Type="Self.Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Topic">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Panorama_JXNUModelStoreContainer">
+    <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Collect" EntityType="Self.Collect" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Focus" EntityType="Self.Focus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LeaveMsg" EntityType="Self.LeaveMsg" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Comment].[Id] AS [Id], 
+    [Comment].[UserId] AS [UserId], 
+    [Comment].[Content] AS [Content], 
+    [Comment].[CreatTime] AS [CreatTime], 
+    [Comment].[CommentId] AS [CommentId], 
+    [Comment].[TopicId] AS [TopicId], 
+    [Comment].[Status] AS [Status], 
+    [Comment].[TopicUserId] AS [TopicUserId]
+    FROM [dbo].[Comment] AS [Comment]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Collect__TopicId__2E1BDC42" Association="Self.FK__Collect__TopicId__2E1BDC42">
+      <End Role="Topic" EntitySet="Topic" />
+      <End Role="Collect" EntitySet="Collect" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Collect__UserId__2D27B809" Association="Self.FK__Collect__UserId__2D27B809">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Collect" EntitySet="Collect" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__TopicUs__267ABA7A" Association="Self.FK__Comment__TopicUs__267ABA7A">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__UserId__25869641" Association="Self.FK__Comment__UserId__25869641">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Focus__UserId__30F848ED" Association="Self.FK__Focus__UserId__30F848ED">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Focus" EntitySet="Focus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Topic__UserId__20C1E124" Association="Self.FK__Topic__UserId__20C1E124">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Topic" EntitySet="Topic" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

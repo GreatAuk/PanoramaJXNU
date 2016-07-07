@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <object type="PanoramaJXNU.WebApp.Controllers.UserInfoController, PanoramaJXNU.WebApp" singleton="false" >
+    <property name="UserInfoService" ref="userInfoService" />
+	  <property name="TopicService" ref="topicService" />
+	  <property name="CommentService" ref="commentService" />
+	  <property name="FocusService" ref="focusService" />
+  </object>
+
+  <object type="PanoramaJXNU.WebApp.Controllers.LoginController, PanoramaJXNU.WebApp" singleton="false" >
+    <property name="UserInfoService" ref="userInfoService" />
+  </object>
+
+  <object type="PanoramaJXNU.WebApp.Controllers.RegisterController, PanoramaJXNU.WebApp" singleton="false" >
+    <property name="UserInfoService" ref="userInfoService" />
+  </object>
+  
+  <!--<object type="PanoramaJXNU.WebApp.Controllers.LoginInController, PanoramaJXNU.WebApp" singleton="false" >
+    <property name="UserInfoService" ref="userInfoService" />
+  </object>-->
+	<object singleton="false" type="PanoramaJXNU.WebApp.Areas.Admin.Controllers.adminLoginController, PanoramaJXNU.WebApp">
+		<property ref="adminsService" name="AdminsService"/>
+	</object>
+  <!--intentionally do NOT register the AccountController with the container; demonstrates that the underlying
+  default controller factory will properly (attempt to!) resolve all controllers not registered with Spring.NET
+  using its default controller resolution behavoir-->
+  <!--<object type="Spring.MvcQuickStart.Controllers.AccountController, Spring.MvcQuickStart" singleton="false" />-->
+	<object type="PanoramaJXNU.WebApp.Controllers.TopicController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="TopicService" ref="topicService" />
+	</object>
+	<object type="PanoramaJXNU.WebApp.Controllers.TopicController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="CommentService" ref="commentService" />
+	</object>
+	<object type="PanoramaJXNU.WebApp.Controllers.TopicController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="UserInfoService" ref="userInfoService" />
+	</object>
+	<object type="PanoramaJXNU.WebApp.Controllers.CommentController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="CommentService" ref="commentService" />
+	</object>
+	<object type="PanoramaJXNU.WebApp.Controllers.CommentController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="UserInfoService" ref="userInfoService" />
+	</object>
+	<object type="PanoramaJXNU.WebApp.Controllers.TopicPraiseRecordController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="TopicPraiseRecordService" ref="topicPraiseRecordService" />
+	</object>
+	<object type="PanoramaJXNU.WebApp.Controllers.ReplyPraiseRecordController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="ReplyPraiseRecordService" ref="replyPraiseRecordService" />
+	</object>
+	
+	<object type="PanoramaJXNU.WebApp.Controllers.FocusController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="FocusService" ref="focusService" />
+	</object>
+
+	<object type="PanoramaJXNU.WebApp.Controllers.HomeController, PanoramaJXNU.WebApp" singleton="false" >
+		<property name="PanoPraiseRecordService" ref="panoPraiseRecordService" />
+		<property name="PanoCollectService" ref="panoCollectService" />
+	</object>
+</objects>

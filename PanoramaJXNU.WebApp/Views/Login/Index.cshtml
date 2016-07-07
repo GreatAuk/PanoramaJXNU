@@ -1,0 +1,182 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<head>
+    <title>登录全景师大</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-social.css" rel="stylesheet" />
+    <link href="~/Content/templatemo_style.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            $('#textWarning').css({
+                display: "none",
+                color: "red",
+                'text-decoration': "none"
+            })
+            $('#textWarning').css("display", "none")
+        });
+        function afterLogin(data) {
+
+            var serviceData = data.split(":");
+            if (serviceData[0] == "ok") {
+                $('#textRemind').css("display", "block")
+                window.location.href = "/Topic/index";
+            }
+            else {
+                $('#textWarning').css("display", "block")
+                $("body").click(function () {
+                    $('#textWarning').css("display", "none")
+                })
+
+            }
+        }
+        //------------------表单验证---------------------
+        $().ready(function () {
+            // 在键盘按下并释放及提交后验证提交表单
+            $("#loginForm").validate({
+                rules: {
+                    LoginEmail: {
+                        required: true,
+                        email: true
+                    },
+                    LoginPwd: {
+                        required: true,
+                        minlength: 5
+                    }
+                },
+                messages: {
+                    LoginEmail: "请输入一个正确的邮箱,包括字符“@@”",
+                    LoginPwd: {
+                        required: "请输入密码",
+                        minlength: "密码长度不能小于 5 个字母"
+                    }
+                }
+            });
+        }
+      )
+    </script>
+
+    <style>
+        input.error {
+            border: 1px solid red;
+        }
+
+        label.error {
+            padding-left: 16px;
+            font-weight: bold;
+            color: #EA5200;
+            padding-top: 20px;
+        }
+
+        #textRemind {
+            color: #C5C5C5;
+            font-size: 16px;
+            margin-left: 38%;
+            margin-bottom: 0;
+            display: none;
+        }
+
+        #textWarning {
+            height: 15px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="templatemo-bg-image-1">
+    <div class="container">
+        <div class="col-md-12">
+            @using (Ajax.BeginForm("UserLogin", "Login", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterLogin", LoadingElementId = "div1" }, new { id = "loginForm", @class = "form-horizontal templatemo-login-form-2" }))
+            {
+                @*<form class="form-horizontal templatemo-login-form-2" role="form" action="#" method="post">*@
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>登录全景师大</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="templatemo-one-signin col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="username" class="control-label">账&nbsp;&nbsp;号</label>
+                                <div class="templatemo-input-icon-container">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <input type="email" name="LoginEmail" class="form-control" id="username" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="password" class="control-label">密&nbsp;&nbsp;码</label>
+                                <div class="templatemo-input-icon-container">
+                                    <i class="fa fa-lock"></i>
+                                    <input type="password" name="LoginPwd" class="form-control" id="password" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> 记住我
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="submit" value="登  录" class="btn btn-warning">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12" style="height:15px">
+                                <a href="forgot-password.html" class="text-center">不能登录?</a>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <div class="col-md-12">
+                                <p id="textRemind">正在登录...</p>
+                            </div>
+                        </div>
+                        <div class="form-group" style="height:15px">
+                            <div class="col-md-12">
+                                <p id="textWarning">您的账号或密码有误，请重新输入！</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="templatemo-other-signin col-md-6" id="right-">
+                        <label class="margin-bottom-15">
+                            <a>使用其他社交账号一键登录 </a>
+                        </label>
+                        <a class="btn btn-block btn-social btn-facebook margin-bottom-15">
+                            <i class="fa fa-facebook"></i> 使用 Facebook 登录
+                        </a>
+                        <a class="btn btn-block btn-social btn-twitter margin-bottom-15">
+                            <i class="fa fa-twitter"></i> 使用 Twitter 登录
+                        </a>
+                        <a class="btn btn-block btn-social btn-google-plus">
+                            <i class="fa fa-google-plus"></i> 使用 Google登录
+                        </a>
+                        <label class="margin-bottom-15" id="herf-register">
+                            <a href="~/Register/Index" class="text-center">还没有帐号？马上注册</a>
+                        </label>
+                    </div>
+                </div>
+                @*</form>*@
+            }
+        </div>
+    </div>
+</body>
+    </html>

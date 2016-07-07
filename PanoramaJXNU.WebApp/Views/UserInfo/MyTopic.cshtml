@@ -1,0 +1,78 @@
+﻿@model List<PanoramaJXNU.Model.Topic>
+<div class="perInfo">
+    <div class="titleInfoBorder">
+        <span>我的话题</span>
+    </div>
+    <div class="firstTabBox lineSpace">
+        @foreach (var item in Model)
+        {
+            <article class="format-standard type-post hentry clearfix">
+
+            <header class="clearfix">
+
+                <h3 class="post-title">
+                    @item.Title
+                </h3>
+                <div class="post-meta clearfix">
+                    <span class="date">@item.CreateTime</span>
+                    <span class="category"><a href="#">@item.UserName</a></span>
+                    <span class="comments"><a href="#">22</a></span>
+                    <span class="like-count">@item.PraiseCount</span>
+                    <label id="topicid" hidden="hidden">@item.Id</label>
+                </div><!-- end of post meta -->
+
+            </header>
+                <div>
+                    @Html.Raw(item.Content.Length > 150 ? item.Content.Substring(0, 150) + "..." : item.Content) <a class="readmore-link" href="/topic/Detail?topicid=@item.Id">Read more</a>
+                </div>
+
+            <div class="img4g">
+                @{
+                    int start;
+                    int end;
+
+                    List<string> imgs = new List<string>();
+                    string Content = item.Content;
+                    if ((start = Content.IndexOf("<img")) != -1)
+                    {
+                        end = Content.IndexOf(">", start);
+                        imgs.Add(Content.Substring(start, end - start + 1));
+                        Content = Content.Remove(start, end - start + 1);
+                        if ((start = Content.IndexOf("<img")) != -1)
+                        {
+                            end = Content.IndexOf(">", start);
+                            imgs.Add(Content.Substring(start, end - start + 1));
+                            Content = Content.Remove(start, end - start + 1);
+                        }
+                        if ((start = Content.IndexOf("<img")) != -1)
+                        {
+                            end = Content.IndexOf(">", start);
+                            imgs.Add(Content.Substring(start, end - start + 1));
+                            Content = Content.Remove(start, end - start + 1);
+                        }
+                        if ((start = Content.IndexOf("<img")) != -1)
+                        {
+                            end = Content.IndexOf(">", start);
+                            imgs.Add(Content.Substring(start, end - start + 1));
+                            Content = Content.Remove(start, end - start + 1);
+                        }
+                    }
+                    foreach (var img in imgs)
+                    {
+                        @Html.Raw(img);
+                    }
+                }
+
+            </div>
+                <hr class="new-hr" />
+        </article>
+        }
+     
+     
+
+    </div>
+</div>
+
+<script>
+    $(".member_main").css("height", "");
+</script>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects>
+  <object name="userInfoService" type="PanoramaJXNU.BLL.UserInfoService,PanoramaJXNU.BLL" singleton="false">
+  </object>
+	<object singleton="false" type="PanoramaJXNU.BLL.AdminsService,PanoramaJXNU.BLL" name="adminsService">
+	</object>
+	<object name="topicService" type="PanoramaJXNU.BLL.TopicService,PanoramaJXNU.BLL" singleton="false">
+	</object>
+	<object name="commentService" type="PanoramaJXNU.BLL.CommentService,PanoramaJXNU.BLL" singleton="false">
+	</object>
+	<object name="topicPraiseRecordService" type="PanoramaJXNU.BLL.TopicPraiseRecordService,PanoramaJXNU.BLL" singleton="false">
+	</object>
+	<object name="replyPraiseRecordService" type="PanoramaJXNU.BLL.ReplyPraiseRecordService,PanoramaJXNU.BLL" singleton="false">
+	</object>
+	
+	<object name="focusService" type="PanoramaJXNU.BLL.FocusService,PanoramaJXNU.BLL" singleton="false">
+	</object>
+	<object name="panoPraiseRecordService" type="PanoramaJXNU.BLL.PanoPraiseRecordService,PanoramaJXNU.BLL" singleton="false">
+	</object>
+	<object name="panoCollectService" type="PanoramaJXNU.BLL.PanoCollectService,PanoramaJXNU.BLL" singleton="false">
+	</object>
+</objects>
